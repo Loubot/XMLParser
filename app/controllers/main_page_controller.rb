@@ -3,8 +3,8 @@ class MainPageController < ApplicationController
 	require 'open-uri'
 
 	def fetch
-		@trains_info = Nokogiri::HTML(open('http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML_WithTrainType?TrainType=D'))
-		@parse_trains_info = @trains_info.css("trainstatus")
-
+		@trains_info = Nokogiri::XML(open('http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML'))
+		
+		@parse_trains_info_all = @trains_info.at('[text()= "Lisburn"]').parent.text
 	end
 end
