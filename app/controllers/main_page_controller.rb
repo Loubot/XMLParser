@@ -9,14 +9,16 @@ class MainPageController < ApplicationController
     
     @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
     @doc = REXML::Document.new(@xml_data)
-    @allStations = {}
+    @allStations = {} 
     root = @doc.root
     @stations = @doc.elements.each('ArrayOfObjStation/objStation') do |name|
     	hash = {}
-    	hash[name.elements['StationDesc'].text] = [name.elements['StationLatitude'].text,name.elements['StationLongitude'].text]
+    	hash[name.elements['StationDesc'].text] = {lat: name.elements['StationLatitude'].text, lon: name.elements['StationLongitude'].text}
     	 
     	@allStations.merge!(hash)
     end
-    @station = @allStations['Belfast Central']
-	end
+    @convert = @allStations.assoc('Belfast Central')
+    @station = @convert.to_json
+  end
+	
 end
