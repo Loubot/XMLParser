@@ -12,7 +12,11 @@ class MainPageController < ApplicationController
     @station = []
     root = @doc.root
     @stations = @doc.elements.each('ArrayOfObjStation/objStation') do |name|
-    	@station << name.elements['StationLatitude'].text
+    	hash = {}
+    	hash['station'] = name.elements['StationDesc'].text
+    	hash['lat'] = name.elements['StationLatitude'].text
+    	hash['lon'] = name.elements['StationLongitude'].text
+    	@station << hash
     end
     
 	end
