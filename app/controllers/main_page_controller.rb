@@ -39,10 +39,7 @@ class MainPageController < ApplicationController
   end
 
   def select_one
-    #= params[:data]
-
-
-
-    @returned_station = @allStations.assoc(params[:data]).to_json
+    @returned_station = @allStations.assoc(params[:data])
+    gon.returned_station = @allStations.assoc(params[:data])
   end
 end
