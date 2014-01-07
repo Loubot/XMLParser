@@ -1,1 +1,3 @@
-<p>Hello all</p>
+<% for station in @stations %>
+  <%= link_to station, station_info_path(:data => station) %><br>
+<% end %>
