@@ -7,15 +7,15 @@ class MainPageController < ApplicationController
   before_filter :get_station_info, :only => [:fetch, :all, :select_one]
 
   def get_station_info
-    rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML"
+    rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML"
     
     @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
     @doc = REXML::Document.new(@xml_data)
     @allStations = {} 
     #root = @doc.root
-    @doc.elements.each('ArrayOfObjStation/objStation') do |name|
+    @doc.elements.each('ArrayOfObjTrainPositions/objTrainPositions') do |name|
       hash = {}
-      hash[name.elements['StationDesc'].text] = {lat: name.elements['StationLatitude'].text, lon: name.elements['StationLongitude'].text}
+      hash[name.elements['PublicMessage'].text] = {lat: name.elements['TrainLatitude'].text, lon: name.elements['TrainLongitude'].text}
        
       @allStations.merge!(hash)
     end
@@ -32,8 +32,8 @@ class MainPageController < ApplicationController
     @home_page = 'all_stations'
     @stations = []
 
-    @doc.elements.each('ArrayOfObjStation/objStation') do |name|
-      @stations << name.elements['StationDesc'].text
+    @doc.elements.each('ArrayOfObjTrainPositions/objTrainPositions') do |name|
+      @stations << name.elements['PublicMessage'].text
     end
     @stations.sort!
     @stations = @stations.paginate(:page => params[:page])
