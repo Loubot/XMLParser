@@ -3,7 +3,8 @@ $(document).ready ->
   myLatLng = new google.maps.LatLng(hash[1].lat, hash[1].lon)
   mapOptions = 
   center: myLatLng
-  zoom: 8
+  zoom: 14
+  mapTypeId: google.maps.MapTypeId.ROADMAP
 
   map = new google.maps.Map(document.getElementById("map"),
     mapOptions);

@@ -1,7 +1,7 @@
 class MainPageController < ApplicationController
 
 	require 'net/http'
-
+  require 'will_paginate/array'
   require 'rexml/document'
 
   before_filter :get_station_info, :only => [:fetch, :all, :select_one]
@@ -29,16 +29,18 @@ class MainPageController < ApplicationController
   end
 	
   def all
-    
+    @home_page = 'all_stations'
     @stations = []
 
     @doc.elements.each('ArrayOfObjStation/objStation') do |name|
       @stations << name.elements['StationDesc'].text
     end
     @stations.sort!
+    @stations = @stations.paginate(:page => params[:page])
   end
 
   def select_one
+    @home_page = 'station_info'
     @returned_station = @allStations.assoc(params[:data])
     gon.returned_station = @allStations.assoc(params[:data])
   end
