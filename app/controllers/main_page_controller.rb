@@ -41,7 +41,8 @@ class MainPageController < ApplicationController
 
   def select_one
     @home_page = 'station_info'
-    @returned_station = @allStations.assoc(params[:data])
+    @returned_station = {}
+    @returned_station[params[:data]] = @allStations.assoc(params[:data])
     gon.returned_station = @allStations.assoc(params[:data])
   end
 end
