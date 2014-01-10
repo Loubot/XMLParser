@@ -5,4 +5,7 @@
 <%= link_to 'All trains', all_stations_path %><br>
 <%= @date %><br>
 
-<%= @allStations %>
+<% for train in @allTrains %>
+	<%= train[:exArrival] %><br>
+<% end %>
+

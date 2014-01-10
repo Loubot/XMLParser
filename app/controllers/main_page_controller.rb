@@ -41,15 +41,30 @@ class MainPageController < ApplicationController
   end
 
   def select_one
-    rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML"
     
-    @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
-    @doc = REXML::Document.new(@xml_data)
     @home_page = 'station_info'
     @returned_station = {}
     #@allStations
     @returned_station[params[:data]] = @allStations[(params[:data])]
     gon.returned_station = @allStations[params[:data]]
-    @date = Time.now.strftime("%d %B %Y") 
+    
+    #start get train movements
+    train = @allStations[(params[:data])]
+    @date = Time.now.strftime("%d%B%Y")
+    
+    rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getTrainMovementsXML?TrainId=#{train[:code]}&TrainDate=#{@date}"
+    
+    @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
+    @doc = REXML::Document.new(@xml_data)
+    @allTrains = []
+    @doc.elements.each('ArrayOfObjTrainMovements/objTrainMovements') do |train| 
+      hash = { stop:train.elements['LocationFullName'].text,
+                                                  exArrival:train.elements['ExpectedArrival'].text,
+                                                  exDepart: train.elements['ExpectedDeparture'].text,
+                                                  current?:train.elements['StopType'].text,
+                                                  destination:train.elements['TrainDestination'].text}
+      @allTrains << hash
+      
+    end 
   end
 end
