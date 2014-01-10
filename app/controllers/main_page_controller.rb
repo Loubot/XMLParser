@@ -15,7 +15,8 @@ class MainPageController < ApplicationController
     #root = @doc.root
     @doc.elements.each('ArrayOfObjTrainPositions/objTrainPositions') do |name|
       hash = {}
-      hash[name.elements['PublicMessage'].text] = {lat: name.elements['TrainLatitude'].text, lon: name.elements['TrainLongitude'].text}
+      hash[name.elements['PublicMessage'].text] = {lat: name.elements['TrainLatitude'].text, lon: name.elements['TrainLongitude'].text, 
+                                                    code: name.elements['TrainCode'].text }
        
       @allStations.merge!(hash)
     end
@@ -40,9 +41,15 @@ class MainPageController < ApplicationController
   end
 
   def select_one
+    rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML"
+    
+    @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
+    @doc = REXML::Document.new(@xml_data)
     @home_page = 'station_info'
     @returned_station = {}
-    @returned_station[params[:data]] = @allStations.assoc(params[:data])
-    gon.returned_station = @allStations.assoc(params[:data])
+    #@allStations
+    @returned_station[params[:data]] = @allStations[(params[:data])]
+    gon.returned_station = @allStations[params[:data]]
+    @date = Time.now.strftime("%d %B %Y") 
   end
 end

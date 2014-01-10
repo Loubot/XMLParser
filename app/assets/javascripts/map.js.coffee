@@ -1,6 +1,6 @@
 $(document).ready ->
   hash = gon.returned_station
-  myLatLng = new google.maps.LatLng(hash[1].lat, hash[1].lon)
+  myLatLng = new google.maps.LatLng(hash.lat, hash.lon)
   mapOptions = 
   center: myLatLng
   zoom: 14
