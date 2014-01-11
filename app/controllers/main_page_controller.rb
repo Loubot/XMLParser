@@ -84,15 +84,17 @@ class MainPageController < ApplicationController
   end
 
   def station_info    
-    station = params[:data].gsub(' ','+' )
-    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc=#{station}&NumMins=90"
+    @station = params[:data].gsub(' ','+' )
+    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc=#{@station}&NumMins=90"
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
     @stationDoc = REXML::Document.new(@xml_data)
     @stationByTime = []
 
     @stationDoc.elements.each('ArrayOfObjStationData/objStationData') do |station|
       hash = { origin:station.elements['Origin'].text,
-               destination: station.elements['Destination'].text }
+               destination: station.elements['Destination'].text,
+               arrival: station.elements['Exparrival'].text,
+               depart: station.elements['Expdepart'].text }
       @stationByTime << hash
     end
     @thisStation = @allStationsWithCoords[params[:data]]

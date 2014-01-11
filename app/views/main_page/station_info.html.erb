@@ -1,14 +1,15 @@
+<strong>Trains servicing <%= @station %> in the next 90 mins </strong>
+
 <div id = "mapContainer">
 	<div id = "map"></div>
 <div>
-<div id = "stationContainer">
-	<% @stationByTime.each do |station| %>
-		<%= content_tag :p, :class => "origin" do %>
-			Origin: <%= station[:origin] %>  
-		<% end %>
-		<%= content_tag :p, :class => "destination" do %>
-			Destination: <%= station[:destination] %>
-		<% end %><br>
-	<% end %>
 
-</div><!--stationContainer--!>
+<% @stationByTime.each do |station| %>
+	<%= content_tag :p, :class => "origin" do %>
+		Origin: <%= station[:origin] %> Expected Arrival <%= station[:arrival] %> 
+	<% end %>
+	<%= content_tag :p, :class => "destination" do %>
+		Destination: <%= station[:destination] %> Expected departure <%= station[:depart] %>
+	<% end %><br>
+<% end %>
+
