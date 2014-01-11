@@ -4,7 +4,22 @@ class MainPageController < ApplicationController
   require 'will_paginate/array'
   require 'rexml/document'
 
-  before_filter :get_station_info, :only => [:fetch, :all, :train_info]
+  before_filter :get_station_info,    :only => [:fetch, :all, :train_info]
+  before_filter :get_station_coords,  :only => [:station_info]
+
+  def get_station_coords
+    rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML"
+    
+    @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
+    @doc = REXML::Document.new(@xml_data)
+    @allStationsWithCoords = {}
+    @doc.elements.each('ArrayOfObjStation/objStation') do |name|
+      hash = {}
+      hash[name.elements['StationDesc'].text] = {   lat: name.elements['StationLatitude'].text,
+                                                  lon: name.elements['StationLongitude'].text}
+      @allStationsWithCoords.merge!(hash)
+    end 
+  end
 
   def get_station_info
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML"
@@ -59,12 +74,27 @@ class MainPageController < ApplicationController
     @allTrains = []
     @doc.elements.each('ArrayOfObjTrainMovements/objTrainMovements') do |train| 
       hash = { stop:train.elements['LocationFullName'].text,
-                                                  exArrival:train.elements['ExpectedArrival'].text,
-                                                  exDepart: train.elements['ExpectedDeparture'].text,
-                                                  current?:train.elements['StopType'].text,
-                                                  destination:train.elements['TrainDestination'].text}
+                exArrival:train.elements['ExpectedArrival'].text,
+                exDepart: train.elements['ExpectedDeparture'].text,
+                current?:train.elements['StopType'].text,
+                destination:train.elements['TrainDestination'].text}
       @allTrains << hash
       
     end 
+  end
+
+  def station_info
+    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc=#{params[:data]}&NumMins=90"
+    @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
+    @stationDoc = REXML::Document.new(@xml_data)
+    @stationByTime = {}
+
+    @stationDoc.elements.each('ArrayOfObjStationData/objStationData') do |station|
+      hash = { origin:station.elements['Origin'].text,
+               destination: station.elements['Destination'].text }
+      @stationByTime.merge!(hash)
+    end
+    @thisStation = @allStationsWithCoords[params[:data]]
+    gon.returned_station = @allStationsWithCoords[params[:data]]
   end
 end
