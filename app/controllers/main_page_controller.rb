@@ -83,8 +83,9 @@ class MainPageController < ApplicationController
     end 
   end
 
-  def station_info
-    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc=#{params[:data]}&NumMins=90"
+  def station_info    
+    station = params[:data].gsub(' ','+' )
+    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc=#{station}&NumMins=90"
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
     @stationDoc = REXML::Document.new(@xml_data)
     @stationByTime = {}
@@ -96,5 +97,6 @@ class MainPageController < ApplicationController
     end
     @thisStation = @allStationsWithCoords[params[:data]]
     gon.returned_station = @allStationsWithCoords[params[:data]]
+    @stationByTime
   end
 end
