@@ -12,8 +12,9 @@
 		<% end %>		
 
 	<% else %>
-		<p><%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart] %></p>
-
+		<%= link_to(station_info_path(:data => train[:stop])) do %>
+			<p ><%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart] %></p>
+		<% end %>	
 	<% end %>
 <% end %>
 

@@ -1,5 +1,14 @@
 <div id = "mapContainer">
 	<div id = "map"></div>
 <div>
-<%= @station %>
-<%= @stationByTime %>
+<div id = "stationContainer">
+	<% @stationByTime.each do |station| %>
+		<%= content_tag :p, :class => "origin" do %>
+			Origin: <%= station[:origin] %>  
+		<% end %>
+		<%= content_tag :p, :class => "destination" do %>
+			Destination: <%= station[:destination] %>
+		<% end %><br>
+	<% end %>
+
+</div><!--stationContainer--!>
