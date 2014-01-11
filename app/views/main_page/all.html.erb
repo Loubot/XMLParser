@@ -5,7 +5,7 @@
   <%= will_paginate @stations %>
 
   <% for station in @stations %>
-    <%= link_to station, station_info_path(:data => station) %><br>
+    <%= link_to station, train_info_path(:data => station) %><br>
   <% end %>
 
   <%= will_paginate @stations %>

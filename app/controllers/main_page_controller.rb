@@ -4,7 +4,7 @@ class MainPageController < ApplicationController
   require 'will_paginate/array'
   require 'rexml/document'
 
-  before_filter :get_station_info, :only => [:fetch, :all, :select_one]
+  before_filter :get_station_info, :only => [:fetch, :all, :train_info]
 
   def get_station_info
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML"
@@ -40,7 +40,7 @@ class MainPageController < ApplicationController
     @stations = @stations.paginate(:page => params[:page])
   end
 
-  def select_one
+  def train_info
     
     @home_page = 'station_info'
     @returned_station = {}

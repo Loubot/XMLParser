@@ -1,0 +1,17 @@
+<div id="mapContainer">
+  <div id="map"></div>
+</div>
+<%= @returned_station %><br>
+<%= link_to 'All trains', all_stations_path %><br>
+<%= @date %><br>
+
+<% for train in @allTrains %>
+	<% if train[:current?] == 'C' %>
+		<p class="red"><%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart] %></p>
+
+	<% else %>
+		<p><%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart] %></p>
+
+	<% end %>
+<% end %>
+
