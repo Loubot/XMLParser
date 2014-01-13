@@ -4,7 +4,7 @@ class MainPageController < ApplicationController
   require 'will_paginate/array'
   require 'rexml/document'
 
-  before_filter :get_station_info,    :only => [:fetch, :all, :train_info]
+  before_filter :get_trains_info,    :only => [:fetch, :all, :train_info]
   before_filter :get_station_coords,  :only => [:station_info]
 
   def get_station_coords
@@ -21,7 +21,7 @@ class MainPageController < ApplicationController
     end 
   end
 
-  def get_station_info
+  def get_trains_info
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML"
     
     @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
@@ -47,6 +47,11 @@ class MainPageController < ApplicationController
     @home_page = 'all_stations'
     
     @stations = @allStations.paginate(:page => params[:page])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @allStations.to_json }
+    end
   end
 
   def train_info
@@ -79,7 +84,7 @@ class MainPageController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @date.to_json }
+      format.json { render json: @allTrains.to_json }
     end
   end
 
@@ -104,5 +109,10 @@ class MainPageController < ApplicationController
     @thisStation = @allStationsWithCoords[params[:data]]
     gon.returned_station = @allStationsWithCoords[params[:data]]
     @stationByTime
-  end
+
+    respond_to do |format|
+    format.html
+    format.json { render json: @stationByTime.to_json }
+    end
+  end  
 end

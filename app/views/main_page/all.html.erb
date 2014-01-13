@@ -1,11 +1,12 @@
-<h1><strong>All trains currentyly running</strong></h1>
+<h1><strong>All trains currently running</strong></h1>
 <p id = "click_info">Click any train below to see it on a map</p>
 
 <section id = "station_list">
   <%= will_paginate @stations %>
 
   <% for station in @stations %>
-    <%= link_to station[:desc], train_info_path(:data => station[:code]), :class => 'stationInfo', data: station[:code] %><br>
+    <%= link_to station[:desc].gsub('\\n', ' '), train_info_path(:data => station[:code]), 
+    	:class => 'stationInfo', data: station[:code] %><br>
   <% end %>
 
   <%= will_paginate @stations %>

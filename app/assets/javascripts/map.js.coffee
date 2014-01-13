@@ -1,15 +1,15 @@
 $(document).ready ->
-  $(".stationInfo").click (event) ->
-    event.preventDefault()
-    $.ajax
-      type: 'get'
-      data: { data: $(@).attr 'data' }
-      dataType: 'json'
-      url: '/train_info'
-      success: (json) ->
-        alert 'yos' + json
-      error: (error) ->
-        alert 'shite' + JSON.stringify error
+  # $(".stationInfo").click (event) ->
+  #   event.preventDefault()
+  #   $.ajax
+  #     type: 'get'
+  #     data: { data: $(@).attr 'data' }
+  #     dataType: 'json'
+  #     url: '/train_info'
+  #     success: (json) ->
+  #       alert 'yos ' + JSON.stringify json
+  #     error: (error) ->
+  #       alert 'shite' + JSON.stringify error
 
 
   hash = gon.returned_station

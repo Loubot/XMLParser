@@ -2,19 +2,22 @@
   <div id="map"></div>
 </div>
 <br>
-<%= link_to 'All trains', all_stations_path %><br>
-<%= @date %><br>
 
-<% for train in @allTrains %>
-	<% if train[:current?] == 'C' %>
-		<%= link_to(station_info_path(:data => train[:stop])) do %>
-			<p class="red"><%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart] %></p>
-		<% end %>		
+<div>
+	<%= link_to 'All trains', all_stations_path %><br>
+	<%= @date %><br>
 
-	<% else %>
-		<%= link_to(station_info_path(:data => train[:stop])) do %>
-			<p ><%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart] %></p>
-		<% end %>	
+	<% for train in @allTrains %>
+		<% if train[:current?] == 'C' %>
+			<%= link_to station_info_path(:data => train[:stop]), :class => 'trainInfo', data: train[:stop], :class => 'red' do %>
+				<%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart]  %>
+			<% end %><br>
+
+		<% else %>
+			<%= link_to station_info_path(:data => train[:stop]), :class => 'trainInfo', data: train[:stop] do %>
+				<%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart] %><br>
+			<% end %>	
+		<% end %>
 	<% end %>
-<% end %>
+</div>
 
