@@ -1,0 +1,29 @@
+<strong>Trains servicing <%= @stationMessage %> in the next 90 mins </strong>
+
+<div id = "mapContainer">
+	<div id = "map"></div>
+<div>
+
+
+<% @stationByTime.each do |station| %>
+	<strong><%= station[:origin] %> to <%= station[:destination] %> due in <%= station[:due] %> mins</strong>
+
+	<%= link_to train_info_path(:data => station[:code]) do %>
+		
+		<%= content_tag :p, :class => "origin" do %>
+			Origin: <%= station[:origin] %> <% if station[:arrival] == '00:00' %>
+																				Expected Arrival: Originates here
+																				<% else %>
+																				Expected Arrival: <%= station[:arrival] %>
+																				<% end %>
+		<% end %>	
+		<%= content_tag :p, :class => "destination" do %>
+
+			Destination: <%= station[:destination] %> <% if station[:depart] == '00:00' %>
+																										Expected departure: Terminates here 
+																								<% else %>
+																									Expected departure: <%= station[:depart] %>
+																								<% end %>
+	<% end %>
+		<% end %><br>
+<% end %>

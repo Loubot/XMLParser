@@ -76,6 +76,11 @@ class MainPageController < ApplicationController
       @allTrains << hash
       
     end 
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @date }
+    end
   end
 
   def station_info   

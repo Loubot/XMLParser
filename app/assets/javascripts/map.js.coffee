@@ -1,4 +1,15 @@
 $(document).ready ->
+  $(".stationInfo").click (event) ->
+    event.preventDefault()
+    $.ajax
+      type: 'get'
+      data: { data: $(@).attr 'data' }
+      dataType: 'json'
+      url: '/train_info'
+      success: (json) ->
+        alert json
+
+
   hash = gon.returned_station
   myLatLng = new google.maps.LatLng(hash.lat, hash.lon)
   mapOptions = 
