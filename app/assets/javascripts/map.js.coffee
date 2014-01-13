@@ -7,7 +7,9 @@ $(document).ready ->
       dataType: 'json'
       url: '/train_info'
       success: (json) ->
-        alert json
+        alert 'yos' + json
+      error: (error) ->
+        alert 'shite' + JSON.stringify error
 
 
   hash = gon.returned_station

@@ -79,7 +79,7 @@ class MainPageController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @date }
+      format.json { render json: @date.to_json }
     end
   end
 
