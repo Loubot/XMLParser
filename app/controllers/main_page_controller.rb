@@ -29,7 +29,7 @@ class MainPageController < ApplicationController
     @allStations = []
     #root = @doc.root
     @doc.elements.each('ArrayOfObjTrainPositions/objTrainPositions') do |name|
-      hash = {desc: name.elements['PublicMessage'].text,lat: name.elements['TrainLatitude'].text, lon: name.elements['TrainLongitude'].text, 
+      hash = {desc: name.elements['PublicMessage'].text.gsub('\\n', ' '),lat: name.elements['TrainLatitude'].text, lon: name.elements['TrainLongitude'].text, 
                                                     code: name.elements['TrainCode'].text }
        
       @allStations << hash
