@@ -3,6 +3,7 @@ class MainPageController < ApplicationController
 	require 'net/http'
   require 'will_paginate/array'
   require 'rexml/document'
+  require 'json'
 
   before_filter :get_trains_info,    :only => [:fetch, :all, :train_info]
   before_filter :get_station_coords,  :only => [:station_info]
@@ -72,10 +73,20 @@ class MainPageController < ApplicationController
     @doc = REXML::Document.new(@xml_data)
     @allTrains = []
     @doc.elements.each('ArrayOfObjTrainMovements/objTrainMovements') do |train| 
+      if train.elements['ExpectedArrival'].text == '00:00:00'
+        arrival = 'Originates here'
+      else 
+        arrival = train.elements['ExpectedArrival'].text
+      end
+      if train.elements['ExpectedDeparture'].text == '00:00:00'
+        departure = 'Terminates here'
+      else
+        departure = train.elements['ExpectedDeparture'].text
+      end
       hash = { stop:train.elements['LocationFullName'].text,
                 origin:train.elements['TrainOrigin'].text,
-                exArrival:train.elements['ExpectedArrival'].text,
-                exDepart: train.elements['ExpectedDeparture'].text,
+                exArrival:arrival,
+                exDepart: departure,
                 current?:train.elements['StopType'].text,
                 destination:train.elements['TrainDestination'].text}
       @allTrains << hash
