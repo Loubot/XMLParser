@@ -5,7 +5,7 @@ class MainPageController < ApplicationController
   require 'rexml/document'
   require 'json'
 
-  before_filter :get_trains_info,    :only => [:fetch, :all, :train_info]
+  before_filter :get_trains_info,    :only => [:fetch, :train_info]
   before_filter :get_station_coords,  :only => [:station_info]
 
   def get_station_coords
@@ -46,7 +46,22 @@ class MainPageController < ApplicationController
   end
 	
   def all
+    flash.now['success'] = params[:data]
     @home_page = 'all_stations'
+
+    rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML_WithTrainType?TrainType=#{params[:data]}"
+    
+    @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
+    @doc = REXML::Document.new(@xml_data)
+    @allStations = []
+    #root = @doc.root
+    @doc.elements.each('ArrayOfObjTrainPositions/objTrainPositions') do |name|
+      message = name.elements['PublicMessage'].text.split('\\n')
+      hash = {desc: message[1],lat: name.elements['TrainLatitude'].text, lon: name.elements['TrainLongitude'].text, 
+                                                    code: name.elements['TrainCode'].text }
+       
+      @allStations << hash
+    end
     
     @stations = @allStations.paginate(:page => params[:page])
 

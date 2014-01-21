@@ -7,6 +7,8 @@ gem 'rails', '3.2.15'
 
 gem 'nokogiri'
 
+gem 'bootstrap-sass'
+
 gem 'gon'
 
 gem 'will_paginate'
@@ -27,6 +29,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+gem 'rails_layout'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
