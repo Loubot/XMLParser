@@ -119,7 +119,7 @@ class MainPageController < ApplicationController
     @home_page = "orange" 
     @station = params[:data].gsub(' ','+' )
     @stationMessage = params[:data]
-    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc=#{@station}&NumMins=90"
+    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML?StationDesc=#{@station}&NumMins=90"
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
     @stationDoc = REXML::Document.new(@xml_data)
     @stationByTime = []
