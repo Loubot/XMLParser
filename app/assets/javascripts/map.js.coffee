@@ -11,6 +11,9 @@ $(document).ready ->
   #     error: (error) ->
   #       alert 'shite' + JSON.stringify error
 
+  # $("ul.nav-pills li a").click (e) ->
+  #   $("ul.nav-pills li.active").removeClass "active"
+  #   $(this).parent("li").addClass "active"
 
   hash = gon.returned_station
   myLatLng = new google.maps.LatLng(hash.lat, hash.lon)

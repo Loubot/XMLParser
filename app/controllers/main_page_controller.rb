@@ -89,16 +89,10 @@ class MainPageController < ApplicationController
     @doc = REXML::Document.new(@xml_data)
     @allTrains = []
     @doc.elements.each('ArrayOfObjTrainMovements/objTrainMovements') do |train| 
-      if train.elements['ExpectedArrival'].text == '00:00:00'
-        arrival = 'Originates here'
-      else 
-        arrival = train.elements['ExpectedArrival'].text
-      end
-      if train.elements['ExpectedDeparture'].text == '00:00:00'
-        departure = 'Terminates here'
-      else
-        departure = train.elements['ExpectedDeparture'].text
-      end
+      arrival = train_info_arrival(train.elements['ExpectedArrival'].text)
+
+      departure = train_info_depart(train.elements['ExpectedDeparture'].text)      
+      
       hash = { stop:train.elements['LocationFullName'].text,
                 origin:train.elements['TrainOrigin'].text,
                 exArrival:arrival,
@@ -125,10 +119,15 @@ class MainPageController < ApplicationController
     @stationByTime = []
 
     @stationDoc.elements.each('ArrayOfObjStationData/objStationData') do |station|
+      arrival = station_info_arrival(station.elements['Exparrival'].text)
+      
+      depart = station_info_depart(station.elements['Expdepart'].text)
+
+      
       hash = { origin:station.elements['Origin'].text,
                destination: station.elements['Destination'].text,
-               arrival: station.elements['Exparrival'].text,
-               depart: station.elements['Expdepart'].text,
+               arrival: arrival,
+               depart: depart,
                due: station.elements['Duein'].text,
                code: station.elements['Traincode'].text.strip }
       @stationByTime << hash
@@ -139,7 +138,7 @@ class MainPageController < ApplicationController
 
     respond_to do |format|
     format.html
-    format.json { render json: @stationByTime.to_json }
+    format.json { render json: {station:@stationByTime, coords:@thisStation, name: @stationMessage} }
     end
   end  
 end
