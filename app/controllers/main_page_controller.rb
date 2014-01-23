@@ -143,7 +143,7 @@ class MainPageController < ApplicationController
   end  
 
   def get_all_stations
-    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML_WithStationType?StationType=D"
+    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML_WithStationType?StationType=#{ params[:type] }"
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
     @stationDoc = REXML::Document.new(@xml_data)
     @allStations = []
@@ -157,6 +157,6 @@ class MainPageController < ApplicationController
     end
 
     
-    render json: @allStations
+    render json: @allStations.sort_by { |x| x[:name] }
   end
 end
