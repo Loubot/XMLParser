@@ -141,4 +141,8 @@ class MainPageController < ApplicationController
     format.json { render json: {station:@stationByTime, coords:@thisStation, name: @stationMessage} }
     end
   end  
+
+  def get_all_stations
+    
+  end
 end
