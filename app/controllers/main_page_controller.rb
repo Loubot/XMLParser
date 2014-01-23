@@ -143,6 +143,20 @@ class MainPageController < ApplicationController
   end  
 
   def get_all_stations
+    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML_WithStationType?StationType=D"
+    @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
+    @stationDoc = REXML::Document.new(@xml_data)
+    @allStations = []
+
+    @stationDoc.elements.each('ArrayOfObjStation/objStation') do |station|
+      hash = {  name: station.elements['StationDesc'].text,
+                lat: station.elements['StationLatitude'].text,
+                lon: station.elements['StationLongitude'].text,
+                stationId: station.elements['StationId'].text }
+      @allStations << hash
+    end
+
     
+    render json: @allStations
   end
 end
