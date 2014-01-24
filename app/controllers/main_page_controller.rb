@@ -6,7 +6,7 @@ class MainPageController < ApplicationController
   require 'json'
 
   before_filter :get_trains_info,    :only => [:fetch, :train_info]
-  before_filter :get_station_coords,  :only => [:station_info,:get_all_stations]
+  before_filter :get_station_coords,  :only => [:station_info]
 
   def get_station_coords
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML"
@@ -16,8 +16,9 @@ class MainPageController < ApplicationController
     @allStationsWithCoords = {}
     @doc.elements.each('ArrayOfObjStation/objStation') do |name|
       hash = {}
-      hash[name.elements['StationCode'].text] = {   lat: name.elements['StationLatitude'].text,
-                                                  lon: name.elements['StationLongitude'].text}
+      hash[name.elements['StationCode'].text.strip!] = {   lat: name.elements['StationLatitude'].text,
+                                                  lon: name.elements['StationLongitude'].text,
+                                                  stationName: name.elements['StationDesc'].text }
       @allStationsWithCoords.merge!(hash)
     end 
   end
@@ -27,14 +28,14 @@ class MainPageController < ApplicationController
     
     @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
     @doc = REXML::Document.new(@xml_data)
-    @allStations = []
+    @allTrains = []
     #root = @doc.root
     @doc.elements.each('ArrayOfObjTrainPositions/objTrainPositions') do |name|
       message = name.elements['PublicMessage'].text.split('\\n')
       hash = {desc: message[1],lat: name.elements['TrainLatitude'].text, lon: name.elements['TrainLongitude'].text, 
                                                     code: name.elements['TrainCode'].text }
        
-      @allStations << hash
+      @allTrains << hash
     end
   end
 
@@ -76,8 +77,8 @@ class MainPageController < ApplicationController
     @home_page = 'station_info'
     @returned_station = {}
     
-    @returned_station = @allStations.detect {|station| station[:code] == params[:data] }
-    gon.returned_station = @returned_station
+    @returned_train = @allTrains.detect {|station| station[:code] == params[:data] }
+    gon.returned_station = @returned_train
     
     #start get train movements
     #train = @allStations[(params[:data])]
@@ -106,13 +107,13 @@ class MainPageController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @allTrains.to_json }
+      format.json { render json: { stops: @allTrains, coords: @returned_train } }
     end
   end
 
   def station_info   
     @home_page = "orange" 
-    @station = params[:data].gsub(' ','+' )
+    #@station = params[:data].gsub(' ','+' )
     @stationMessage = params[:data]
     @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=#{params[:data]}&NumMins=90"
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
@@ -133,13 +134,13 @@ class MainPageController < ApplicationController
                code: station.elements['Traincode'].text.strip }
       @stationByTime << hash
     end
-    @thisStation = @allStationsWithCoords[params[:data]]
+     
     gon.returned_station = @allStationsWithCoords[params[:data]]
     @stationByTime
 
     respond_to do |format|
     format.html
-    format.json { render json: {station:@stationByTime, coords:@thisStation, name: @stationMessage} }
+    format.json { render json: {station:@stationByTime, coords:@allStationsWithCoords } }
     end
   end  
 
@@ -148,7 +149,7 @@ class MainPageController < ApplicationController
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
     
     @allStations = Hash.from_xml(@xml_data)['ArrayOfObjStation']['objStation']
-        
-    render json: @allStations.sort_by { |station| station[:StationDesc]}
+    @returnAllStations = @allStations.sort_by { |station| station[:StationDesc] }
+    render json: @returnAllStations
   end
 end
