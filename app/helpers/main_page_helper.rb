@@ -15,7 +15,7 @@ module MainPageHelper
 	end
 
 	def station_info_arrival(time)
-		if time = '00:00'
+		if time == '00:00'
 			arrival = 'Originates here'
 		else 
 			arrival = time 

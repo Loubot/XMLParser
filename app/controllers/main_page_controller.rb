@@ -16,7 +16,7 @@ class MainPageController < ApplicationController
     @allStationsWithCoords = {}
     @doc.elements.each('ArrayOfObjStation/objStation') do |name|
       hash = {}
-      hash[name.elements['StationCode'].text.strip] = {   lat: name.elements['StationLatitude'].text,
+      hash[name.elements['StationCode'].text.strip] = {  lat: name.elements['StationLatitude'].text,
                                                   lon: name.elements['StationLongitude'].text,
                                                   stationName: name.elements['StationDesc'].text }
       @allStationsWithCoords.merge!(hash)
