@@ -16,7 +16,7 @@ class MainPageController < ApplicationController
     @allStationsWithCoords = {}
     @doc.elements.each('ArrayOfObjStation/objStation') do |name|
       hash = {}
-      hash[name.elements['StationCode'].text.strip!] = {   lat: name.elements['StationLatitude'].text,
+      hash[name.elements['StationCode'].text.strip] = {   lat: name.elements['StationLatitude'].text,
                                                   lon: name.elements['StationLongitude'].text,
                                                   stationName: name.elements['StationDesc'].text }
       @allStationsWithCoords.merge!(hash)
@@ -137,10 +137,11 @@ class MainPageController < ApplicationController
      
     gon.returned_station = @allStationsWithCoords[params[:data]]
     @stationByTime
+    returned_station = @allStationsWithCoords[params[:data]]
 
     respond_to do |format|
     format.html
-    format.json { render json: {station:@stationByTime, coords:@allStationsWithCoords } }
+    format.json { render json: {station:@stationByTime, coords:@allStationsWithCoords[params[:data]] } }
     end
   end  
 
@@ -149,7 +150,7 @@ class MainPageController < ApplicationController
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
     
     @allStations = Hash.from_xml(@xml_data)['ArrayOfObjStation']['objStation']
-    @returnAllStations = @allStations.sort_by { |station| station[:StationDesc] }
+    @returnAllStations = @allStations.sort_by { |station| station['StationDesc'] }
     render json: @returnAllStations
   end
 end
