@@ -1,8 +1,11 @@
-<div class="page-header">
-  <%= content_tag :h2 do %>
+<nav class="navbar" role="navigation">
+  <%= content_tag :h2, class: "navbar-left" do %>
   	<%= @returned_train[:desc] %>
   <% end %>
-</div>
+  <%= content_tag :h2, class: "navbar-right" do %>
+  	<%= link_to 'All trains', all_trains_path %>
+  <% end %> 
+</nav>
 
 <div id="mapContainer">
   <div id="map"></div>
@@ -11,11 +14,11 @@
 
 <div>
 	<%= link_to 'All trains', all_trains_path %><br>
-	<%= @date %><br>
+	<p>Train calling at following stations:</p>
 
 	<% for train in @allTrains %>
-		<% if train[:current?] == 'C' %>
-			<%= link_to station_info_path(:data => train[:stopCode]), :class => 'trainInfo', data: train[:stop], :class => 'red' do %>
+		<% if train[:current?] == 'N' %>
+			<%= link_to station_info_path(:data => train[:stopCode]), :class => 'trainInfo', data: train[:stop], :class => 'black' do %>
 				<%= train[:stop] %>: Expected arrival: <%= train[:exArrival] %>, Expected departure: <%= train[:exDepart]  %>
 			<% end %><br>
 
