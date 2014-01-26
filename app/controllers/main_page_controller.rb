@@ -5,7 +5,8 @@ class MainPageController < ApplicationController
   require 'rexml/document'
   require 'json'
 
-  before_filter :get_trains_info,    :only => [:fetch, :train_info]
+
+  before_filter :get_trains_info,    :only => [:fetch, :train_info, :all]
   before_filter :get_station_coords,  :only => [:station_info]
 
   def get_station_coords
@@ -47,7 +48,6 @@ class MainPageController < ApplicationController
   end
 	
   def all
-    flash.now['success'] = params[:data]
     @home_page = 'all_stations'
 
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML_WithTrainType?TrainType=#{params[:data]}"
@@ -114,7 +114,12 @@ class MainPageController < ApplicationController
   def station_info   
     @home_page = "orange" 
     #@station = params[:data].gsub(' ','+' )
-    @stationMessage = @allStationsWithCoords[params[:data]][:stationName]
+    begin 
+      @stationMessage = @allStationsWithCoords[params[:data]][:stationName]
+    rescue => e      
+      flash.keep[:error] = "Invalid station code. Soz!" 
+      redirect_to all_trains_path and return
+    end
     @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=#{params[:data]}&NumMins=90"
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
     @stationDoc = REXML::Document.new(@xml_data)

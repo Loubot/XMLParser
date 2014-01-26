@@ -3,6 +3,12 @@ body { padding-top: 0px;
   padding-left:10px;
  }
 
+.alert.alert-error{
+  position: absolute;
+  width: 20%
+  color:red;
+}
+
 .all_stations{
     background-color: #A4FFA4!important;
 }
@@ -37,6 +43,5 @@ body { padding-top: 0px;
 #stationTrains{
   padding-top:2%;
 }
-
 
 
