@@ -139,7 +139,7 @@ class MainPageController < ApplicationController
       @stationByTime << hash
     end
      
-    gon.returned_station = @allStationsWithCoords[params[:data]]
+    gon.returned_train = @allStationsWithCoords[params[:data]]
     @stationByTime
     returned_station = @allStationsWithCoords[params[:data]]
 
