@@ -75,10 +75,9 @@ class MainPageController < ApplicationController
   def train_info
     
     @home_page = 'station_info'
-    @returned_station = {}
-    
+        
     @returned_train = @allTrains.detect {|station| station[:code] == params[:data] }
-    gon.returned_station = @returned_train
+    gon.returned_train = @returned_train
     
     #start get train movements
     #train = @allStations[(params[:data])]
@@ -117,7 +116,7 @@ class MainPageController < ApplicationController
     begin 
       @stationMessage = @allStationsWithCoords[params[:data]][:stationName]
     rescue => e      
-      flash.keep[:error] = "Invalid station code. Soz!" 
+      flash[:danger] = "Server returned invalid station code. Soz!!" 
       redirect_to all_trains_path and return
     end
     @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=#{params[:data]}&NumMins=90"

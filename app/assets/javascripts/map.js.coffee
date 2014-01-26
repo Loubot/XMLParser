@@ -15,7 +15,7 @@ $(document).ready ->
   #   $("ul.nav-pills li.active").removeClass "active"
   #   $(this).parent("li").addClass "active"
 
-  hash = gon.returned_station
+  hash = gon.returned_train
   myLatLng = new google.maps.LatLng(hash.lat, hash.lon)
   mapOptions = 
   center: myLatLng
