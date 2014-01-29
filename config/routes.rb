@@ -4,6 +4,7 @@ XMLParser::Application.routes.draw do
   get 'train_info'  	      => 'main_page#train_info',  	    :as => 'train_info'
   get 'station_info'	      => 'main_page#station_info',	    :as => 'station_info'
   get 'get_all_stations'    => 'main_page#get_all_stations',  :as => 'get_all_stations'
-
+  get 'search_stations'			=> 'main_page#search_stations',		:as => 'search_stations'
+  get 'search_stations_results' => 'main_page#search_stations_results', :as => 'search_stations_results'
   root :to  => 'main_page#all'
 end

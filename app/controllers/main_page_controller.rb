@@ -157,4 +157,16 @@ class MainPageController < ApplicationController
     @returnAllStations = @allStations.sort_by { |station| station['StationDesc'] }
     render json: @returnAllStations
   end
+
+  def search_stations
+
+  end
+
+  def search_stations_results 
+    @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationsFilterXML?StationText=#{params[:data]}"
+    @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
+    
+    @searchResults = Hash.from_xml(@xml_data)['ArrayOfObjStationFilter']['objStationFilter']
+    render json: @searchResults
+  end
 end

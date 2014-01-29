@@ -1,0 +1,13 @@
+<section id ="searchStations">
+	<%= form_for search_stations_results_path, :url => search_stations_results_path, :method => 'get', remote: true do |f| %>
+		<p>
+			<%= f.text_field :data %>
+			
+		</p>
+		<%= f.submit "Search" %>
+	<% end %> 
+</section>
+
+<section id="results">
+	
+</section>
