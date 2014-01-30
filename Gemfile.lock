@@ -123,7 +123,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
-  coffee-rails (~> 3.2.1)
+  coffee-rails
   gon
   jquery-rails
   nokogiri

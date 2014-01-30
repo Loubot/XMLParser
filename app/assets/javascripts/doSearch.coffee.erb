@@ -1,8 +1,12 @@
+
 $(document).ready ->
+
+	$('#_search_results_data').focus ->
+		$(@).val ""
 	$('#searchStations form').submit (e) ->
 		e.preventDefault()
 		url = $(@).attr 'action'
-		searchParams = $('#_search_stations_results_data').val()
+		searchParams = $('#_search_results_data').val()
 		
 			
 		$.ajax
@@ -18,5 +22,6 @@ $(document).ready ->
 
 
 populateResults = (stations) ->
+	$('#results').empty()
 	$(stations).each ->
-		$('#results').append """#{<%= link_to }"""
+		$('#results').append """<a href="/station_info?data=#{@.StationCode}">#{@.StationDesc}</a><hr> """
