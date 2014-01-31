@@ -8,9 +8,9 @@
       </ul>        
     </div>    
     <p id= "headerName"class="navbar-text">Where's My Train</p>
-    <%= form_for search_stations_path, :html => { :class => 'navbar-form navbar-right' } do |f| %>      
+    <%= form_for search_results_path, :url=> search_results_path, :html => { :class => 'navbar-form navbar-right' }, method: 'get' do |f| %>      
         <div class="form-group">          
-          <%= f.text_field :name, :class => 'form-control' %>         
+          <%= f.text_field :data, :class => 'form-control' %>         
         </div>        
         <%= f.submit 'Search', :class => 'btn btn-default' %>     
     <% end %>
