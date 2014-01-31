@@ -159,6 +159,7 @@ class MainPageController < ApplicationController
   end
 
   def search_stations
+    @home_page = 'station_info'
 
   end
 

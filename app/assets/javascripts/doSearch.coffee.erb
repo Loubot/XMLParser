@@ -21,7 +21,8 @@ $(document).ready ->
 				alert JSON.stringify error
 
 
-populateResults = (stations) ->
+populateResults = (stations) ->	
 	$('#results').empty()
+	$('#results').append """<h2>Stations matching your search:</h2><br> """
 	$(stations).each ->
 		$('#results').append """<a href="/station_info?data=#{@.StationCode}">#{@.StationDesc}</a><hr> """

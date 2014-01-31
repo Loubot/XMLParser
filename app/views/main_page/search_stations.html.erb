@@ -1,11 +1,22 @@
+<div class="page-header">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">    
+    <p id="searchHeader" class="navbar-text">Where's My Train</p>
+    <%= content_tag :h2, id:"all_trains_link", class: "navbar-right" do %>
+      <%= link_to 'All trains', all_trains_path %>
+    <% end %>
+  </nav>
+</div>
 <section id ="searchStations">
-	<%= form_for search_results_path, :url => search_results_path, :method => 'get', remote: true do |f| %>
+	<%= form_for search_results_path, :url => search_results_path, html: { class: "searchForm" },:method => 'get' do |f| %>
 		<p>
-			<%= f.text_field :data, :value => "E.G. du" %>
+			<%= f.text_field :data, :value => "E.G. du", class: "textInput" %>
 			
 		</p>
 		<%= f.submit "Search" %>
 	<% end %> 
 </section>
 
-<section id="results"></section>
+<section id="results">
+
+
+</section>
