@@ -7,16 +7,19 @@
   </nav>
 </div>
 <section id ="searchStations">
-	<%= form_for search_results_path, :url => search_results_path, html: { class: "searchForm" },:method => 'get' do |f| %>
+	<%= form_for search_stations_path, :url => search_stations_path, html: { class: "searchForm" },:method => 'get' do  %>
 		<p>
-			<%= f.text_field :data, :value => "E.G. du", class: "textInput" %>
+			<%= text_field_tag :data, params[:data], :value => "E.G. du", class: "textInput" %>
 			
 		</p>
-		<%= f.submit "Search" %>
+		<%= submit_tag "Search" %>
 	<% end %> 
 </section>
 
 <section id="results">
-
+  <% for station in @searchResults %>
+    <%= link_to station['StationDesc'], station_info_path(:data => station['StationCode'].strip), 
+      :class => 'stationInfo', data: station['StationCode'].strip %><br>
+  <% end %>
 
 </section>

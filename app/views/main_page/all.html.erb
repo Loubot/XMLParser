@@ -8,11 +8,12 @@
       </ul>        
     </div>    
     <p id= "headerName"class="navbar-text">Where's My Train</p>
-    <%= form_for search_results_path, :url=> search_results_path, :html => { :class => 'navbar-form navbar-right' }, method: 'get' do |f| %>      
+    <%= form_for search_stations_path, :url=> search_stations_path, :html => { :class => 'navbar-form navbar-right' }, method: 'get' do  %>  
+        <%= label_tag 'Pick a Station' %>
         <div class="form-group">          
-          <%= f.text_field :data, :class => 'form-control' %>         
+          <%= text_field_tag :data, params[:data], :value => 'E.G. du', :class => 'textInput' %>         
         </div>        
-        <%= f.submit 'Search', :class => 'btn btn-default' %>     
+        <%= submit_tag 'Search', :class => 'btn btn-default' %>     
     <% end %>
   </nav>
 </div>

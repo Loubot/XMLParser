@@ -160,14 +160,18 @@ class MainPageController < ApplicationController
 
   def search_stations
     @home_page = 'station_info'
-
-  end
-
-  def search_results 
     @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationsFilterXML?StationText=#{params[:data]}"
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
     
     @searchResults = Hash.from_xml(@xml_data)['ArrayOfObjStationFilter']['objStationFilter']
-    render json: @searchResults
+    Rails.cache.write('results', @searchResults)
+    respond_to do |format|
+      format.html
+      format.json { render json: @searchResults }
+    end
+  end
+
+  def search_results 
+    
   end
 end
