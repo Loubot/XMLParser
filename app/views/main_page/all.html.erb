@@ -11,7 +11,7 @@
     <%= form_for search_stations_path, :url=> search_stations_path, :html => { :class => 'navbar-form navbar-right' }, method: 'get' do  %>  
         <%= label_tag 'Pick a Station' %>
         <div class="form-group">          
-          <%= text_field_tag :data, params[:data], :value => 'E.G. du', :class => 'textInput' %>         
+          <%= text_field_tag :data, params[:data], :value => 'E.G. dublin', :class => 'textInput' %>         
         </div>        
         <%= submit_tag 'Search', :class => 'btn btn-default' %>     
     <% end %>

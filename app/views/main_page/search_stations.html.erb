@@ -9,7 +9,7 @@
 <section id ="searchStations">
 	<%= form_for search_stations_path, :url => search_stations_path, html: { class: "searchForm" },:method => 'get' do  %>
 		<p>
-			<%= text_field_tag :data, params[:data], :value => "E.G. du", class: "textInput" %>
+			<%= text_field_tag :data, params[:data], :value => "E.G. dublin", class: "textInput" %>
 			
 		</p>
 		<%= submit_tag "Search" %>
