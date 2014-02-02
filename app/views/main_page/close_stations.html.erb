@@ -3,6 +3,8 @@
 </div>
 
 <div id="myLocation">
-
-  <%= @sortedDistances %>
+  <h2>Stations within 30 miles</h2>
+  <% @sortedStationsByDistance.each do |station| %>
+    <%= link_to station[:stationName],station_info_path(station[:code]) %><hr>
+  <% end %>
 </div>

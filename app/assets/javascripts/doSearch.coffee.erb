@@ -26,7 +26,13 @@ success = (pos) ->
     title: "Nearby stations"
 
   nearStations = gon.sortedDistances
-  
+
+  $(nearStations).each ->
+    latlng = new google.maps.LatLng @.lat, @.lon
+    marker = new google.maps.Marker
+      position: latlng
+      map: map
+      icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-9d7050/shapecolor-no/shadow-0/border-no/symbolstyle-color/symbolshadowstyle-white/gradient-no/steamtrain.png'
 
 
 error = (error) ->
