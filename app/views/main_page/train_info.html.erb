@@ -1,7 +1,9 @@
 <div class="page-header">
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	  <%= content_tag :h2, class: "navbar-left" do %>
-	  	<%= @returned_train[:desc] %>
+	  <% if @returned_train %>
+		  	<%= content_tag :h2, class: "navbar-left" do %>
+		  	<%= @returned_train[:desc] %>
+		  <% end %>
 	  <% end %>
 	  <%= content_tag :h2, id:"all_trains_link", class: "navbar-right" do %>
 	  	<%= link_to 'All trains', all_trains_path %>

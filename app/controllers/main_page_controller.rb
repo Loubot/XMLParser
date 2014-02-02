@@ -76,8 +76,13 @@ class MainPageController < ApplicationController
     
     @home_page = 'station_info'
         
-    @returned_train = @allTrains.detect {|station| station[:code] == params[:data] }
-    gon.returned_train = @returned_train
+    begin
+      @returned_train = @allTrains.detect {|station| station[:code] == params[:data] }
+      gon.returned_train = @returned_train
+    rescue => e
+      flash[:danger] = "Server returned invalid train code. Soz!!" 
+      redirect_to :back and return
+    end
     
     #start get train movements
     #train = @allStations[(params[:data])]
