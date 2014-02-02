@@ -1,28 +1,38 @@
-
 $(document).ready ->
 
-	$('.textInput').focus ->
-		$(@).val ""
-# 	$('#searchStations form').submit (e) ->
-# 		e.preventDefault()
-# 		url = $(@).attr 'action'
-# 		searchParams = $('#_search_results_data').val()
-		
-			
-# 		$.ajax
-# 			url: url
-# 			data: { data: searchParams }	
-# 			type: 'get'
-# 			dataType: 'json'
-# 			timeout: 10000
-# 			success: (json) ->
-# 				populateResults(json)
-# 			error: (error) ->
-# 				alert JSON.stringify error
+  checkMyLocation()
+  removeText()
+
+removeText = () ->
+  $('.textInput').focus ->
+    $(@).val ""
+
+checkMyLocation = () ->
+  if $('#myLocation').length > 0
+    options = { timeout: 5000} 
+    navigator.geolocation.getCurrentPosition(success, error, options)
+
+success = (pos) ->
+  myLatLng = new google.maps.LatLng pos.coords.latitude, pos.coords.longitude
+  mapOptions = 
+    center: myLatLng
+    zoom: 10
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  map = new google.maps.Map document.getElementById('myLocationsMap'), mapOptions
+
+  marker = new google.maps.Marker 
+    position: myLatLng
+    map: map
+    title: "Nearby stations"
+
+  nearStations = gon.sortedDistances
+  
 
 
-# populateResults = (stations) ->	
-# 	$('#results').empty()
-# 	$('#results').append """<h2>Stations matching your search:</h2><br> """
-# 	$(stations).each ->
-# 		$('#results').append """<a href="/station_info?data=#{@.StationCode}">#{@.StationDesc}</a><hr> """
+error = (error) ->
+  alert JSON.stringify error
+
+  
+
+
+

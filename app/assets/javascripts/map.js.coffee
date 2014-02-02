@@ -1,26 +1,11 @@
-$(document).ready ->
-  # $(".stationInfo").click (event) ->
-  #   event.preventDefault()
-  #   $.ajax
-  #     type: 'get'
-  #     data: { data: $(@).attr 'data' }
-  #     dataType: 'json'
-  #     url: '/train_info'
-  #     success: (json) ->
-  #       alert 'yos ' + JSON.stringify json
-  #     error: (error) ->
-  #       alert 'shite' + JSON.stringify error
-
-  # $("ul.nav-pills li a").click (e) ->
-  #   $("ul.nav-pills li.active").removeClass "active"
-  #   $(this).parent("li").addClass "active"
+$(document).ready -> 
 
   hash = gon.returned_train
   myLatLng = new google.maps.LatLng(hash.lat, hash.lon)
   mapOptions = 
-  center: myLatLng
-  zoom: 14
-  mapTypeId: google.maps.MapTypeId.ROADMAP
+    center: myLatLng
+    zoom: 14
+    mapTypeId: google.maps.MapTypeId.ROADMAP
 
   map = new google.maps.Map(document.getElementById("map"),
     mapOptions);
@@ -31,3 +16,6 @@ $(document).ready ->
     title: hash[0]
 
   marker.setMap map
+
+  
+  

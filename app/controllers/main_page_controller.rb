@@ -7,7 +7,7 @@ class MainPageController < ApplicationController
 
 
   before_filter :get_trains_info,    :only => [:fetch, :train_info, :all]
-  before_filter :get_station_coords,  :only => [:station_info, :close_stations]
+  before_filter :get_station_coords,  :only => [:station_info]
 
   def get_station_coords
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML"
@@ -172,7 +172,25 @@ class MainPageController < ApplicationController
   end
 
   def close_stations 
-    @allStationsWithCoords
+    @home_page = 'station_info'
+    rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML"
+    
+    @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body
+    @doc = REXML::Document.new(@xml_data)
+    @allStationsWithCoords = {}
+    @distances = []
+    @doc.elements.each('ArrayOfObjStation/objStation') do |name|
+      distance = Geocoder::Calculations.distance_between( [51.894292,-8.525498],
+        [name.elements['StationLatitude'].text,name.elements['StationLongitude'].text])
+      if distance <= 50
+        hash = {}
+        hash = { distance: distance }
+        @distances << hash
+      end
+    end 
+
+    @sortedDistances = @distances.sort_by { |station| station[:distance] }
+    gon.sortedDistances = @sortedDistances
     #http://rubydoc.info/gems/rails-geocoder/0.9.10/frames
   end
 end
