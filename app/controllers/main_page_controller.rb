@@ -7,7 +7,7 @@ class MainPageController < ApplicationController
 
 
   before_filter :get_trains_info,    :only => [:fetch, :train_info, :all]
-  before_filter :get_station_coords,  :only => [:station_info]
+  before_filter :get_station_coords,  :only => [:station_info, :close_stations]
 
   def get_station_coords
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML"
@@ -171,7 +171,7 @@ class MainPageController < ApplicationController
     end
   end
 
-  def search_results 
-    
+  def close_stations 
+    @allStationsWithCoords
   end
 end
