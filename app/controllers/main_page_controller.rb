@@ -173,5 +173,6 @@ class MainPageController < ApplicationController
 
   def close_stations 
     @allStationsWithCoords
+    #http://rubydoc.info/gems/rails-geocoder/0.9.10/frames
   end
 end
