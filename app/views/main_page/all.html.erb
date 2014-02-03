@@ -8,6 +8,7 @@
       </ul>        
     </div>    
     <p id= "headerName"class="navbar-text">Where's My Train</p>
+    <a href="/close_stations"><img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" id="googleMarker"></a>
     <%= form_for search_stations_path, :url=> search_stations_path, :html => { :class => 'navbar-form navbar-right' }, method: 'get' do  %>  
         <%= label_tag 'Pick a Station' %>
         <div class="form-group">          

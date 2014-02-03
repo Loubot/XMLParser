@@ -185,7 +185,7 @@ class MainPageController < ApplicationController
     @allStationsWithCoords = {}
     @distances = []
     @doc.elements.each('ArrayOfObjStation/objStation') do |name|
-      distance = Geocoder::Calculations.distance_between( [51.894292,-8.525498],
+      distance = Geocoder::Calculations.distance_between( params[:coords],
         [name.elements['StationLatitude'].text,name.elements['StationLongitude'].text])
       if distance <= 30
         hash = { code:name.elements['StationCode'].text.strip, lat: name.elements['StationLatitude'].text,
@@ -199,6 +199,10 @@ class MainPageController < ApplicationController
     @sortedStationsByDistance = @distances.sort_by { |station| station[:distance] }
     gon.sortedDistances = @sortedStationsByDistance
     
+    respond_to do |format|
+      format.html
+      format.json { render json: @sortedStationsByDistance }
+    end
     #http://rubydoc.info/gems/rails-geocoder/0.9.10/frames
   end
 end
