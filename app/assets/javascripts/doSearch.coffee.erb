@@ -8,31 +8,33 @@ removeText = () ->
     $(@).val ""
 
 checkMyLocation = () ->
-  if $('#myLocation').length > 0
-    options = { timeout: 5000} 
-    navigator.geolocation.getCurrentPosition(success, error, options)
+  # if $('#myLocation').length > 0
+  options = { timeout: 5000} 
+  navigator.geolocation.getCurrentPosition(success, error, options)
 
 success = (pos) ->
-  myLatLng = new google.maps.LatLng pos.coords.latitude, pos.coords.longitude
-  mapOptions = 
-    center: myLatLng
-    zoom: 10
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  map = new google.maps.Map document.getElementById('myLocationsMap'), mapOptions
+  $('#data').val([pos.coords.latitude,pos.coords.longitude])
+  alert $('#data').val()
+  # myLatLng = new google.maps.LatLng pos.coords.latitude, pos.coords.longitude
+  # mapOptions = 
+  #   center: myLatLng
+  #   zoom: 10
+  #   mapTypeId: google.maps.MapTypeId.ROADMAP
+  # map = new google.maps.Map document.getElementById('myLocationsMap'), mapOptions
 
-  marker = new google.maps.Marker 
-    position: myLatLng
-    map: map
-    title: "Nearby stations"
+  # marker = new google.maps.Marker 
+  #   position: myLatLng
+  #   map: map
+  #   title: "Nearby stations"
 
-  nearStations = gon.sortedDistances
+  # nearStations = gon.sortedDistances
 
-  $(nearStations).each ->
-    latlng = new google.maps.LatLng @.lat, @.lon
-    marker = new google.maps.Marker
-      position: latlng
-      map: map
-      icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-9d7050/shapecolor-no/shadow-0/border-no/symbolstyle-color/symbolshadowstyle-white/gradient-no/steamtrain.png'
+  # $(nearStations).each ->
+  #   latlng = new google.maps.LatLng @.lat, @.lon
+  #   marker = new google.maps.Marker
+  #     position: latlng
+  #     map: map
+  #     icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-9d7050/shapecolor-no/shadow-0/border-no/symbolstyle-color/symbolshadowstyle-white/gradient-no/steamtrain.png'
 
 
 error = (error) ->
