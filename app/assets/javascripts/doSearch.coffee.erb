@@ -2,39 +2,43 @@ $(document).ready ->
 
   checkMyLocation()
   removeText()
+  doNearbyMap()
 
 removeText = () ->
   $('.textInput').focus ->
     $(@).val ""
 
 checkMyLocation = () ->
-  # if $('#myLocation').length > 0
-  options = { timeout: 5000} 
-  navigator.geolocation.getCurrentPosition(success, error, options)
+  if $('#station_list').length > 0
+    options = { timeout: 5000} 
+    navigator.geolocation.getCurrentPosition(success, error, options)
 
 success = (pos) ->
-  $('#data').val([pos.coords.latitude,pos.coords.longitude])
-  alert $('#data').val()
-  # myLatLng = new google.maps.LatLng pos.coords.latitude, pos.coords.longitude
-  # mapOptions = 
-  #   center: myLatLng
-  #   zoom: 10
-  #   mapTypeId: google.maps.MapTypeId.ROADMAP
-  # map = new google.maps.Map document.getElementById('myLocationsMap'), mapOptions
+  $('#coordsLink').attr 'href', "close_stations?coords%5B%5D=#{pos.coords.latitude}&coords%5B%5D=#{pos.coords.longitude}"
+  
+doNearbyMap = () ->
+  if $('#myLocationsMap').height() > 0
+    myLatLng = new google.maps.LatLng pos.coords.latitude, pos.coords.longitude
+    alert myLatLng
+    mapOptions = 
+      center: myLatLng
+      zoom: 10
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    map = new google.maps.Map document.getElementById('myLocationsMap'), mapOptions
 
-  # marker = new google.maps.Marker 
-  #   position: myLatLng
-  #   map: map
-  #   title: "Nearby stations"
+    marker = new google.maps.Marker 
+      position: myLatLng
+      map: map
+      title: "Nearby stations"
 
-  # nearStations = gon.sortedDistances
+    nearStations = gon.sortedDistances
 
-  # $(nearStations).each ->
-  #   latlng = new google.maps.LatLng @.lat, @.lon
-  #   marker = new google.maps.Marker
-  #     position: latlng
-  #     map: map
-  #     icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-9d7050/shapecolor-no/shadow-0/border-no/symbolstyle-color/symbolshadowstyle-white/gradient-no/steamtrain.png'
+    $(nearStations).each ->
+      latlng = new google.maps.LatLng @.lat, @.lon
+      marker = new google.maps.Marker
+        position: latlng
+        map: map
+        icon: 'http://mapicons.nicolasmollet.com/wp-content/uploads/mapicons/shape-default/color-9d7050/shapecolor-no/shadow-0/border-no/symbolstyle-color/symbolshadowstyle-white/gradient-no/steamtrain.png'
 
 
 error = (error) ->
