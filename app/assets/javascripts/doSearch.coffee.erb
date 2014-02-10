@@ -13,7 +13,7 @@ checkMyLocation = () ->
     navigator.geolocation.getCurrentPosition success, error, { timeout: 5000 }
 
 
-success = (pos) ->  
+success = (pos) -> 
   window.position = pos
   getAjax = () ->
     return $.ajax
@@ -34,7 +34,9 @@ populateMyLocation = (stations) ->
     map: map
     animation: google.maps.Animation.DROP
     position: latlng
-  google.maps.event.addListener(marker, 'click', toggleBounce)  
+  infoWindow = new google.maps.InfoWindow
+    content: 'You are here'
+  infoWindow.open map,marker
 
 
 
