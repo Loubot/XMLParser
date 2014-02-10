@@ -8,7 +8,7 @@
       </ul>        
     </div>    
     <p id= "headerName"class="navbar-text">Where's My Train</p>
-    <%= link_to 'close_stations/', :id => "coordsLink" do %>
+    <%= link_to 'nearby_stations/', :id => "coordsLink" do %>
       <img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" id="googleMarker">            
     <% end %>
     <%= form_for search_stations_path, :url=> search_stations_path, :html => { :class => 'navbar-form navbar-right' }, method: 'get' do  %>  

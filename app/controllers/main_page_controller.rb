@@ -176,7 +176,7 @@ class MainPageController < ApplicationController
     end
   end
 
-  def close_stations
+  def nearby_stations
     @home_page = 'station_info' 
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML"
     
