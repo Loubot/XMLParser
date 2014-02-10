@@ -8,11 +8,9 @@
       </ul>        
     </div>    
     <p id= "headerName"class="navbar-text">Where's My Train</p>
-    <%= link_to close_stations_path, :id => "coordsLink" do %>
-      <img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" id="googleMarker">
-            
+    <%= link_to 'close_stations/', :id => "coordsLink" do %>
+      <img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" id="googleMarker">            
     <% end %>
-    <!-- <a href="/close_stations" onclick="checkMyLocation()"><img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" id="googleMarker"></a> -->
     <%= form_for search_stations_path, :url=> search_stations_path, :html => { :class => 'navbar-form navbar-right' }, method: 'get' do  %>  
         <%= label_tag 'Pick a Station' %>
         <div class="form-group">          
