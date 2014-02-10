@@ -1,10 +1,16 @@
+<div class="page-header">
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<h2 class="navbar-left">Nearby Stations</h2>
+		<%= content_tag :h2, class: "navbar-right" do %>
+			<%= link_to 'All Trains', all_trains_path %>
+		<% end %>
+	</nav>
+</div>
+
 <div id="myLocationsMap">
 
 </div>
 
 <div id="myLocation">
-  <!-- <h2>Stations within 30 miles</h2>
-  <% @sortedStationsByDistance.each do |station| %>
-    <%= link_to station[:stationName],station_info_path(station[:code]) %><hr>
-  <% end %> -->
+  
 </div>

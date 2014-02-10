@@ -1,6 +1,14 @@
 @import "bootstrap";
-body { padding-top: 0px;
+
+html {
+  height: 100%;
+}
+
+body { 
+  padding-top: 0px;
   padding-left:10px;
+  height: 100%;
+  width: auto;
  }
 
 .alert{
@@ -70,9 +78,18 @@ input{
 }
 
 #myLocationsMap{
-  width:800px;
-  height:400px;
+  width:50%;
+  height:80%;
   margin-bottom: 2%;
+  float: left;
+ 
+}
+
+#myLocation{
+  width: 35%;
+  overflow: auto;
+  margin-left: 1%;
+  float: left;
 }
 
 #googleMarker{

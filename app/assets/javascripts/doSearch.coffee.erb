@@ -23,10 +23,11 @@ success = (pos) ->
   $.when(getAjax()).then populateMyLocation
 
 populateMyLocation = (stations) ->
+
   latlng = new google.maps.LatLng position.coords.latitude, position.coords.longitude
   mapOptions = 
     center: latlng
-    zoom: 14
+    zoom: 10
     mapTypeId: google.maps.MapTypeId.ROADMAP
   map = new google.maps.Map(document.getElementById("myLocationsMap"),
     mapOptions);
@@ -34,11 +35,27 @@ populateMyLocation = (stations) ->
     map: map
     animation: google.maps.Animation.DROP
     position: latlng
-  infoWindow = new google.maps.InfoWindow
     content: 'You are here'
+  infoWindow = new google.maps.InfoWindow
   infoWindow.open map,marker
+  infoWindow.setContent marker.content
+  
+  $(stations).each ->
+    #Populate map
+    console.log JSON.stringify @
+    latlng = new google.maps.LatLng @.lat, @.lon
+    marker = new google.maps.Marker 
+      map: map
+      position: latlng
+      icon: '/assets/train.png'
+      content: """<a href="http://localhost:3000/station_info?data=#{@.code}">#{@.stationName}</a> """
+    google.maps.event.addListener marker, 'click', ->
+      infoWindow.open map, @
+      infoWindow.setContent @.content
+    # end populate map
 
-
+    #populate station results div
+    $('#myLocation').append """<a href="http://localhost:3000/station_info?data=#{@.code}">#{@.stationName}</a><hr>"""
 
   
     
