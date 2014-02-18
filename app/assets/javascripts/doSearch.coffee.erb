@@ -48,14 +48,14 @@ populateMyLocation = (stations) ->
       map: map
       position: latlng
       icon: '/assets/train.png'
-      content: """<a href="http://localhost:3000/station_info?data=#{@.code}">#{@.stationName}</a> """
+      content: """<a href="http://aqueous-reaches-7754.herokuapp.com/station_info?data=#{@.code}">#{@.stationName}</a> """
     google.maps.event.addListener marker, 'click', ->
       infoWindow.open map, @
       infoWindow.setContent @.content
     # end populate map
 
     #populate station results div
-    $('#myLocation').append """<a href="http://localhost:3000/station_info?data=#{@.code}">#{@.stationName}</a><hr>"""
+    $('#myLocation').append """<a href="http://aqueous-reaches-7754.herokuapp.com/station_info?data=#{@.code}">#{@.stationName}</a><hr>"""
 
   
     
