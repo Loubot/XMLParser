@@ -17,7 +17,7 @@ success = (pos) ->
   window.position = pos
   getAjax = () ->
     return $.ajax
-      url: 'http://localhost:3000/nearby_stations.json'
+      url: 'http://aqueous-reaches-7754.herokuapp.com/nearby_stations.json'
       data: { coords: [pos.coords.latitude, pos.coords.longitude] }
       type: 'get'
   $.when(getAjax()).then populateMyLocation
