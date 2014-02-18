@@ -61,6 +61,7 @@ populateMyLocation = (stations) ->
     
 error = (error) ->
   alert 'Failed to get location' + JSON.stringify error
+  history.back()
 
   
 
