@@ -1,4 +1,4 @@
-@import "bootstrap";
+
 
 html {
   height: 100%;
@@ -100,4 +100,12 @@ input{
 
 #noTrainImg{
   margin-left: 10%;
+}
+
+#searchForm{
+ display:inline;
+}
+
+#coordsLink{
+  width: 100px;
 }

@@ -11,7 +11,7 @@
     <%= link_to 'nearby_stations/', :id => "coordsLink" do %>
       <img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" id="googleMarker">            
     <% end %>
-    <%= form_for search_stations_path, :url=> search_stations_path, :html => { :class => 'navbar-form navbar-right' }, method: 'get' do  %>  
+    <%= form_for search_stations_path, :url=> search_stations_path, :html => { :id => 'searchForm',:class => 'navbar-form navbar-right' }, method: 'get' do  %>  
         <%= label_tag 'Pick a Station' %>
         <div class="form-group">          
           <%= text_field_tag :data, params[:data], :value => 'E.G. dublin', :class => 'textInput' %>         
@@ -35,4 +35,5 @@
 
   <%= will_paginate @stations %>
 </section><!--station_list!-->
+
 
