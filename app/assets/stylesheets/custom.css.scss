@@ -1,15 +1,12 @@
-
-
-html {
-  height: 100%;
+#allPage{
+  height:100%;
+  width:100%;
 }
 
-body { 
-  padding-top: 0px;
-  padding-left:10px;
-  height: 100%;
-  width: auto;
- }
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
 
 .alert{
   margin: 2% 0 0 20%;
@@ -93,9 +90,10 @@ input{
 }
 
 #googleMarker{
-  margin-left: 9.5%;
-  height: 50px;
-  width: 50px;
+  padding:1%;
+  max-width: 100px;
+  height:60px;
+  float:left;
 }
 
 #noTrainImg{

@@ -9,7 +9,7 @@
     </div>    
     <p id= "headerName"class="navbar-text">Where's My Train</p>
     <%= link_to 'nearby_stations/', :id => "coordsLink" do %>
-      <img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" id="googleMarker">            
+      <img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" class="img-responsive" id="googleMarker">            
     <% end %>
     <%= form_for search_stations_path, :url=> search_stations_path, :html => { :id => 'searchForm',:class => 'navbar-form navbar-right' }, method: 'get' do  %>  
         <%= label_tag 'Pick a Station' %>
@@ -21,19 +21,21 @@
   </nav>
 </div>
 
-<h1><strong>All trains currently running</strong></h1>
+<div id="allPage" class="all_stations">
+  <h1><strong>All trains currently running</strong></h1>
 
-<p id = "click_info">Click any train below to see it on a map</p>
+  <p id = "click_info">Click any train below to see it on a map</p>
 
-<section id = "station_list">
-  <%= will_paginate @stations %><br>
+  <section id = "station_list">
+    <%= will_paginate @stations %><br>
 
-  <% for station in @stations %>
-    <%= link_to station[:desc], train_info_path(:data => station[:code]), 
-    	:class => 'stationInfo', data: station[:code] %><br>
-  <% end %>
+    <% for station in @stations %>
+      <%= link_to station[:desc], train_info_path(:data => station[:code]), 
+        :class => 'stationInfo', data: station[:code] %><br>
+    <% end %>
 
-  <%= will_paginate @stations %>
-</section><!--station_list!-->
+    <%= will_paginate @stations %>
+  </section><!--station_list!-->
 
+</div>
 
