@@ -1,4 +1,5 @@
 $(document).ready -> 
+  
 
   hash = gon.returned_train
   myLatLng = new google.maps.LatLng(hash.lat, hash.lon)
