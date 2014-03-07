@@ -15,13 +15,14 @@
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
-    <header>
-      
-    </header>
-    <main role="main" class = "container-liquid">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
-    </main>
-  </body>
+  <body class="<%= @home_page %>">  
+
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+  
+  <%= yield %>
+  
+
+</body>
 </html>
