@@ -4,9 +4,27 @@
       <ul class="nav nav-tabs">
         <li id="all_tab"class="tab"><%= link_to 'All',all_trains_path(data:'A') %></li>
         <li id="suburban_tab" class="tab"><%= link_to 'Suburban', all_trains_path(data:'S') %></li>
-        <li id="dart_tab" class="tab"><%= link_to 'Dart',all_trains_path(data:'D') %></li>      
+        <li id="dart_tab" class="tab"><%= link_to 'Dart',all_trains_path(data:'D') %></li>           
       </ul>        
-    </div>    
+    </div>
+     
+      <ul class="nav navbar-nav">
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    
+    
     <p id= "headerName"class="navbar-text">Where's My Train</p>
     <%= link_to 'nearby_stations/', :id => "coordsLink" do %>
       <img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" class="img-responsive" id="googleMarker">            
@@ -38,4 +56,5 @@
   </section><!--station_list!-->
 
 </div>
+
 

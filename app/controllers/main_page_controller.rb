@@ -64,6 +64,7 @@ class MainPageController < ApplicationController
       @allStations << hash
     end
     
+    gon.returned_train = false
     @stations = @allStations.paginate(:page => params[:page])
 
     respond_to do |format|
@@ -204,5 +205,9 @@ class MainPageController < ApplicationController
       format.json { render json: @sortedStationsByDistance }
     end
     #http://rubydoc.info/gems/rails-geocoder/0.9.10/frames
+  end
+
+  def login
+
   end
 end
