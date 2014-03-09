@@ -207,7 +207,5 @@ class MainPageController < ApplicationController
     #http://rubydoc.info/gems/rails-geocoder/0.9.10/frames
   end
 
-  def login
-
-  end
+  
 end
