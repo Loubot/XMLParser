@@ -7,7 +7,7 @@ class UserController < ApplicationController
   end
 
   def login
-  	flash.keep[:error] = "well done"
+  	flash[:success] = 'Logged in'
   	redirect_to root_url
   end
 end

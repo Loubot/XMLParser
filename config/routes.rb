@@ -12,6 +12,6 @@ XMLParser::Application.routes.draw do
   get 'nearby_stations' 		=> 'main_page#nearby_stations', 	:as => 'nearby_stations'
 
 
-  get 'login'								=> 'user#login', 			:as => 'login'
+  post 'login'							=> 'user#login', 			             :as => 'login'
   root :to  => 'main_page#all'
 end

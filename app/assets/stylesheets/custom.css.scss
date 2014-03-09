@@ -112,6 +112,12 @@ input{
   width:400px;
 }
 
-.alert .alert-success{
-  margin-top: 400px;
+.alert {
+  margin-left: 45%;
+  .alert-success{
+    color: blue;
+  }
+  .alert-error{
+    color:red;
+  }
 }
