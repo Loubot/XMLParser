@@ -9,17 +9,17 @@ $(document).ready ->
 
 	$('.form-control').click (e) ->
 		e.stopPropagation()
-	$('#login').click ->
-		email = $('#email').val()
-		password = $('#pass').val()
-		$.ajax(
-			url:'http://localhost:3000/login'
-			data: {data: [email, password]} 
-			type:'get'
-			timeout:10000
-		).done (data) ->
-			alert 'Signed in'
-			$('#loginContainer').hide('slow')
+	# $('#login').click ->
+	# 	email = $('#email').val()
+	# 	password = $('#pass').val()
+	# 	$.ajax(
+	# 		url:'http://localhost:3000/login'
+	# 		data: {data: [email, password]} 
+	# 		type:'get'
+	# 		timeout:10000
+	# 	).done (data) ->
+	# 		alert 'Signed in'
+	# 		$('#loginContainer').hide('slow')
 
 			
 	
