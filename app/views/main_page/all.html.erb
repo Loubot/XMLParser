@@ -5,8 +5,8 @@
         <li id="all_tab"class="tab"><%= link_to 'All',all_trains_path(data:'A') %></li>
         <li id="suburban_tab" class="tab"><%= link_to 'Suburban', all_trains_path(data:'S') %></li>
         <li id="dart_tab" class="tab"><%= link_to 'Dart',all_trains_path(data:'D') %></li>           
-      </ul>        
-    </div>
+      </ul>  <!-- end of nav nav-tabs -->      
+    </div> <!-- end of navbar-header -->
      
       <ul id ="loginContainer" class="nav navbar-nav">
         
@@ -23,22 +23,22 @@
 
               <%= submit_tag("Sign in", class: "btn btn-large btn-primary") %>
             <% end %>    
-          </div>
-        </li>
-      </ul>
+          </div> <!-- end of dropdown-menu -->
+        </li> <!-- end of dropdown -->
+      </ul> <!-- end of loginContainer -->
     
     
     <p id= "headerName"class="navbar-text">Where's My Train</p>
     <%= link_to 'nearby_stations/', :id => "coordsLink" do %>
       <img src="http://www.clker.com/cliparts/U/M/C/p/x/C/google-maps-pin-green.svg" class="img-responsive" id="googleMarker">            
-    <% end %>
+    <% end %> <!-- end of link_to nearby_stations -->
     <%= form_for search_stations_path, :url=> search_stations_path, :html => { :id => 'searchForm',:class => 'navbar-form navbar-right' }, method: 'get' do  %>  
         <%= label_tag 'Pick a Station' %>
         <div class="form-group">          
           <%= text_field_tag :data, params[:data], :value => 'E.G. dublin', :class => 'textInput' %>         
-        </div>        
+        </div>  <!-- end of form-group   -->    
         <%= submit_tag 'Search', :class => 'btn btn-default' %>     
-    <% end %>
+    <% end %> <!-- end of form_for search_stations -->
   </nav>
 </div>
 
@@ -58,6 +58,6 @@
     <%= will_paginate @stations %>
   </section><!--station_list!-->
 
-</div>
+</div> <!-- end of allPage div -->
 
 
