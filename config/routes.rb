@@ -1,8 +1,10 @@
 XMLParser::Application.routes.draw do
 
-  get "sessions/new"
+  get 'login'             => "sessions#new",                :as => 'login'
+  get 'logout'            => 'sessions#destroy',             :as => 'logout'
 
   resources :users, only: [:new, :update, :login, :create]
+  resources :sessions, only: [:create, :new, :destroy]
 
   
 

@@ -1,0 +1,32 @@
+<% if current_user %>
+  <ul id ="loginContainer" class="nav navbar-nav loggedIn">
+        
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @current_user.email %> <b class="caret"></b></a>
+      <div class="dropdown-menu user">
+        <%= link_to('Log out', logout_path) %><br>
+        <%= link_to 'Edit Favourites' %>         
+       
+      </div> <!-- end of dropdown-menu -->
+    </li> <!-- end of dropdown -->
+  </ul> <!-- end of loginContainer -->
+<% else %>
+  <ul id ="loginContainer" class="nav navbar-nav loggedOut">
+        
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <b class="caret"></b></a>
+      <div class="dropdown-menu login">
+        <%= form_tag(sessions_path) do %>
+
+          <%= label_tag :email %><br>
+          <%= text_field_tag :email, nil, class: "userInput" %><br>
+
+          <%= label_tag :password %><br>
+          <%= password_field_tag :password, nil, class: "userInput" %><br>
+
+          <%= submit_tag("Sign in", class: "btn btn-large btn-primary") %>
+        <% end %>    
+      </div> <!-- end of dropdown-menu -->
+    </li> <!-- end of dropdown -->
+  </ul> <!-- end of loginContainer -->
+<% end %>

@@ -55,7 +55,7 @@
 }
 
 #headerName{
-  padding-left: 27%;
+  padding-left: 0%;
 }
 
 #searchHeader{
@@ -108,16 +108,22 @@ input{
   width: 100px;
 }
 
-.dropdown-menu{
+.dropdown-menu.login{
   width:400px;
 }
 
 .alert {
   margin-left: 45%;
-  .alert-success{
-    color: blue;
-  }
-  .alert-error{
-    color:red;
-  }
+  
+}
+
+.userInput{
+  width: 98%;
+}
+
+.nav.navbar-nav.loggedIn{
+  margin-right: 17%;
+}
+.nav.navbar-nav.loggedOut{
+  margin-right: 20%;
 }
