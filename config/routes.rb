@@ -1,7 +1,7 @@
 XMLParser::Application.routes.draw do
 
   get 'login'             => "sessions#new",                :as => 'login'
-  get 'logout'            => 'sessions#destroy',             :as => 'logout'
+  get 'logout'            => 'sessions#destroy',            :as => 'logout'
 
   resources :users, only: [:new, :update, :login, :create]
   resources :sessions, only: [:create, :new, :destroy]
@@ -22,7 +22,8 @@ XMLParser::Application.routes.draw do
   get 'search_stations'			=> 'main_page#search_stations',		:as => 'search_stations'
   get 'nearby_stations' 		=> 'main_page#nearby_stations', 	:as => 'nearby_stations'
 
-  get 'new'                 => 'users#new',                    :as => 'new'
-  post 'login'							=> 'users#login', 			           :as => 'login'
+  get 'new'                 => 'users#new',                   :as => 'new'
+  post 'login'							=> 'users#login', 			          :as => 'login'
+  post 'addFavourite'       => 'users#addFavourite',          :as => 'addFavourite'
   root :to  => 'main_page#all'
 end

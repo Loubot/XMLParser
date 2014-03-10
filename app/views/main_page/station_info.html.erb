@@ -13,7 +13,11 @@
 
 <div id = "mapContainer">
 	<div id = "map"></div>
-<div>
+	<%= form_tag addFavourite_path(:data => @returned_station_code) do%>
+	<%= submit_tag('Add to favourites', class: 'btn btn-danger') %>
+
+	<% end %>
+<div><br>
 
 <section id = "stationTrains">
 	<% @stationByTime.each do |station| %>

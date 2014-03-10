@@ -32,6 +32,16 @@
   margin-left: 1%;
   width: 800px; 
   height: 400px;
+  float: left;
+}
+
+#addFav{
+  float: left;
+  padding: 10% 10%;
+}
+
+#mapContainer{
+  display: block;
 }
 
 .black{
@@ -47,6 +57,7 @@
 }
 
 #stationTrains{
+  clear: both;
   padding-top:2%;
 }
 

@@ -118,9 +118,10 @@ class MainPageController < ApplicationController
 
   def station_info   
     @home_page = "orange" 
+    @returned_station_code = params[:data]
     #@station = params[:data].gsub(' ','+' )
     begin 
-      @stationMessage = @allStationsWithCoords[params[:data]][:stationName]
+      @stationMessage = @allStationsWithCoords[params[:data]][:stationName]      
     rescue => e      
       flash[:danger] = "Server returned invalid station code. Soz!!" 
       redirect_to :back and return
@@ -147,7 +148,7 @@ class MainPageController < ApplicationController
      
     gon.returned_train = @allStationsWithCoords[params[:data]]
     @stationByTime
-    returned_station = @allStationsWithCoords[params[:data]]
+    
 
     respond_to do |format|
     format.html

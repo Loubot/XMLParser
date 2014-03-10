@@ -26,4 +26,9 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+  def addFavourite
+    flash[:success] = params[:data]
+    redirect_to root_url
+  end
 end
