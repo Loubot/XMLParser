@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserController do
+describe UsersController do
 
   describe "GET 'new'" do
     it "returns http success" do
@@ -9,9 +9,9 @@ describe UserController do
     end
   end
 
-  describe "GET 'update'" do
+  describe "GET 'create'" do
     it "returns http success" do
-      get 'update'
+      get 'create'
       response.should be_success
     end
   end

@@ -18,6 +18,8 @@ gem 'coffee-rails'
 
 gem 'geocoder'
 
+gem 'bcrypt-ruby', :require => 'bcrypt'
+
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'annotate'

@@ -1,4 +1,11 @@
 XMLParser::Application.routes.draw do
+
+  resources :users, only: [:new, :update, :login, :create]
+
+  
+
+  get "users/create"
+
   get "user/new"
 
   get "user/update"
@@ -11,7 +18,7 @@ XMLParser::Application.routes.draw do
   get 'search_stations'			=> 'main_page#search_stations',		:as => 'search_stations'
   get 'nearby_stations' 		=> 'main_page#nearby_stations', 	:as => 'nearby_stations'
 
-
-  post 'login'							=> 'user#login', 			             :as => 'login'
+  get 'new'                 => 'users#new',                    :as => 'new'
+  post 'login'							=> 'users#login', 			           :as => 'login'
   root :to  => 'main_page#all'
 end
