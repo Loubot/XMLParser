@@ -18,7 +18,7 @@ gem 'coffee-rails'
 
 gem 'geocoder'
 
-gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'bcrypt-ruby', '3.1.1.rc1', :require => 'bcrypt'
 
 gem 'rack-cors', :require => 'rack/cors'
 
