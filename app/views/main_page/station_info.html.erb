@@ -13,9 +13,10 @@
 
 <div id = "mapContainer">
 	<div id = "map"></div>
-	<%= form_tag addFavourite_path(:code => @returned_station_code, :name => @stationMessage) do %>
-	<%= submit_tag('Add to favourites', class: 'btn btn-danger') %>
-
+		<% if !@fav %>
+			<%= form_tag addFavourite_path(:code => @returned_station_code, :name => @stationMessage) do %>
+			<%= submit_tag('Add to favourites', class: 'btn btn-danger') %>
+		<% end %>
 	<% end %>
 <div><br>
 

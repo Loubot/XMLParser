@@ -119,6 +119,7 @@ class MainPageController < ApplicationController
   def station_info   
     @home_page = "orange" 
     @returned_station_code = params[:data]
+    @fav = Favourite.find_by_station(params[:data])
     #@station = params[:data].gsub(' ','+' )
     begin 
       @stationMessage = @allStationsWithCoords[params[:data]][:stationName]      
