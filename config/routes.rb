@@ -3,17 +3,11 @@ XMLParser::Application.routes.draw do
   get 'login'             => "sessions#new",                :as => 'login'
   get 'logout'            => 'sessions#destroy',            :as => 'logout'
   get 'signup'            => 'users#new',                   :as => 'signup'
+  
 
-  resources :users, only: [:new, :update, :login, :create]
+  resources :users
   resources :sessions, only: [:create, :new, :destroy]
 
-  
-
-  post "users/create"
-
-  
-
-  get "user/update"
 
   get 'raw_xml'             => 'main_page#fetch',       	    :as => 'raw_xml'
   get 'all_trains'          => 'main_page#all',         	    :as => 'all_trains'  

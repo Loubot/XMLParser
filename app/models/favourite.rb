@@ -10,5 +10,6 @@
 #
 
 class Favourite < ActiveRecord::Base
-  attr_accessible :station, :user_id
+  attr_accessible :station
+  belongs_to :user
 end

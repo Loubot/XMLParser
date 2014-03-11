@@ -1,0 +1,11 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 class="navbar-text"><%= @user.email %> favourites</h3>
+    </div>
+  </div>
+</nav>
+
+<% @favourites.each do |station| %>
+  <%= station.station %>
+<% end %>
