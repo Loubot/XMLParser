@@ -17,7 +17,7 @@
 </section>
 
 <section id="results">
-  <% for station in @searchResults %>
+  <% @searchResults.each do |station| %>
     <%= link_to station['StationDesc'], station_info_path(:data => station['StationCode'].strip), 
       :class => 'stationInfo', data: station['StationCode'].strip %><br>
   <% end %>
