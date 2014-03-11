@@ -6,7 +6,7 @@ XMLParser::Application.routes.draw do
   get 'logout'            => 'sessions#destroy',            :as => 'logout'
   get 'signup'            => 'users#new',                   :as => 'signup'
   
-
+  resources :favourites, only: [:destroy]
   resources :users
   resources :sessions, only: [:create, :new, :destroy]
 

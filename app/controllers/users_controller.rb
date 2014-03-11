@@ -28,14 +28,8 @@ class UsersController < ApplicationController
   end
 
   def addFavourite
-    @favourite = Favourite.new(station:params[:data],user_id:current_user.id)
-    if @favourite.save
-      flash[:success] = 'Favourite successfully saved'
-      redirect_to root_url
-    else
-      flash[:danger] = 'Sorry failed to save favourite'
-      redirect_to :back
-    end
+    flash[:success] = params[:name]
+    redirect_to :back
   end
 
   def show
