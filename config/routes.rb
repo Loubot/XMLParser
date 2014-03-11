@@ -21,6 +21,6 @@ XMLParser::Application.routes.draw do
 
   get 'new'                 => 'users#new',                   :as => 'new'
   post 'login'							=> 'users#login', 			          :as => 'login'
-  post 'addFavourite'       => 'users#addFavourite',          :as => 'addFavourite'
+  post 'addFavourite'       => 'favourites#addFavourite',          :as => 'addFavourite'
   root :to  => 'main_page#all'
 end

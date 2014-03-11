@@ -7,5 +7,5 @@
 </nav>
 
 <% @favourites.each do |station| %>
-  <%= station.station %> <%= link_to 'Delete', station, method: :delete, data: { confirm: "You sure?"} %>
+  <%= station.name %> <%= link_to 'Delete', station, method: :delete, data: { confirm: "You sure?"} %>
 <% end %>

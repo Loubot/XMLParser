@@ -27,11 +27,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def addFavourite
-    flash[:success] = params[:name]
-    redirect_to :back
-  end
-
   def show
     @user = User.find_by_id(params[:id])
     @favourites = @user.favourites
