@@ -4,27 +4,17 @@ class UsersController < ApplicationController
   end
 
   def update
-  end
-
-  def login
-    @user = User.find_by_email(params[:email])
-    if @user 
-      flash[:success] = 'Logged in'
-      redirect_to root_url
-    else 
-      flash[:danger] = 'Invalid email or password'
-      redirect_to root_url
-    end
-  end
+  end  
 
   def create
     @user = User.new(params[:user])
     if @user.save
       flash[:success] = 'User created'
-      redirect_to root_url
+      login_user(@user)      
     else
       render 'new'
     end
+
   end
 
   def show

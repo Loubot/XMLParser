@@ -170,9 +170,15 @@ class MainPageController < ApplicationController
     @home_page = 'station_info'
     @rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationsFilterXML?StationText=#{params[:data]}"
     @xml_data = Net::HTTP.get_response(URI.parse(@rail_url)).body
-    
-    @searchResults = Hash.from_xml(@xml_data)['ArrayOfObjStationFilter']['objStationFilter']
-    Rails.cache.write('results', @searchResults)
+    @doc = REXML::Document.new(@xml_data)
+    @searchResults = []
+    @doc.elements.each('ArrayOfObjStationFilter/objStationFilter') do |station|
+      hash = { stationDesc: station.elements['StationDesc'].text, stationCode: station.elements['StationCode'].text.strip }
+      @searchResults << hash
+    end
+
+    # @searchResults = Hash.from_xml(@xml_data)['ArrayOfObjStationFilter']['objStationFilter']
+    # Rails.cache.write('results', @searchResults)
     respond_to do |format|
       format.html
       format.json { render json: @searchResults }

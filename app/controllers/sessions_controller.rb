@@ -4,14 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.authenticate(params[:email], params[:password])
-    if user
-      session[:user_id] = user.id
-      flash[:success] =  'Logged in'
-      redirect_to :back
-    else
-      flash[:danger] = 'Invalid email or password'
-      redirect_to :back
-    end
+    login_user(user)
 
   end
 
