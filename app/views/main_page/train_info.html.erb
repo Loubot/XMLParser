@@ -7,6 +7,9 @@
 		<% else %>
 			<h2 class="navbar-left">No train info</h2>
 	  <% end %>
+	  <%= content_tag :div, class: "stationInfoUser" do -%>
+			<%= render 'dropdown' %>
+		<% end -%>
 	  <%= content_tag :h2, id:"all_trains_link", class: "navbar-right" do %>
 	  	<%= link_to 'All trains', all_trains_path %>
 	  <% end %> 

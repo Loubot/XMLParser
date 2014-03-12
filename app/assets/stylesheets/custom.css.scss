@@ -147,6 +147,16 @@ input{
   clear:both;
 }
 
-.stationInfoUser #loginContainer{  
- margin-left: 200px;  
+
+
+#favouriteContainer{
+  clear: both;
+}
+
+.favourite{
+  background-color:#eaeaea;
+  height: 50px;
+}
+.favourite.right{
+  margin-left: 20px;
 }

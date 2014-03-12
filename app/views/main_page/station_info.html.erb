@@ -3,9 +3,7 @@
 		<%= content_tag :h2, class: "navbar-left" do %>
 			Trains servicing <%= @stationMessage %> in the next 90 mins
 		<% end %>
-		<%= content_tag :div, class: "stationInfoUser" do -%>
-			<%= render 'dropdown' %>
-		<% end -%>
+		<%= render 'dropdown' %>
 		<%= content_tag :h2, id:"all_trains_link", class: "navbar-right" do %>
 	  	<%= link_to 'All trains', all_trains_path %>
 	  <% end %> 

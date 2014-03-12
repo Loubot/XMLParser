@@ -7,5 +7,12 @@
 </nav>
 
 <% @favourites.each do |station| %>
-  <%= link_to station.name, station_info_path(:data => station.station) %> <%= link_to 'Delete', station, method: :delete, data: { confirm: "You sure?"} %>
+  <div id="favouriteContainer">
+    <%= content_tag :div, class: "col-md-2 favourite" do %>
+      <%= link_to station.name, station_info_path(:data => station.station) %> 
+    <% end %>
+    <%= content_tag :div, class: "col-md-2 favourite right" do %>
+      <%= link_to 'Delete', station, method: :Delete, data: { confirm: "You sure?"} %>
+    <% end %><br>
+  </div>
 <% end %>
