@@ -17,7 +17,7 @@ success = (pos) ->
   window.position = pos
   getAjax = () ->
     return $.ajax
-      url: 'http://aqueous-reaches-7754.herokuapp.com/nearby_stations.json'
+      url: 'http://young-coast-3618.herokuapp.com/nearby_stations.json'
       data: { coords: [pos.coords.latitude, pos.coords.longitude] }
       type: 'get'
   $.when(getAjax()).then populateMyLocation
@@ -48,14 +48,14 @@ populateMyLocation = (stations) ->
       map: map
       position: latlng
       icon: '/assets/train.png'
-      content: """<a href="http://aqueous-reaches-7754.herokuapp.com/station_info?data=#{@.code}">#{@.stationName}</a> """
+      content: """<a href="http://young-coast-3618.herokuapp.com/station_info?data=#{@.code}">#{@.stationName}</a> """
     google.maps.event.addListener marker, 'click', ->
       infoWindow.open map, @
       infoWindow.setContent @.content
     # end populate map
 
     #populate station results div
-    $('#myLocation').append """<a href="http://aqueous-reaches-7754.herokuapp.com/station_info?data=#{@.code}">#{@.stationName}</a><hr>"""
+    $('#myLocation').append """<a href="http://young-coast-3618.herokuapp.com/station_info?data=#{@.code}">#{@.stationName}</a><hr>"""
 
   
     
