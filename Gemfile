@@ -24,6 +24,8 @@ gem 'rack-cors', :require => 'rack/cors'
 
 gem 'annotate'
 
+gem 'rails_12factor', group: :production
+
 group :development, :test do
   gem 'sqlite3', '1.3.9'
   gem 'rspec-rails', '2.11.0'
@@ -48,6 +50,8 @@ gem 'sass-rails',   '~> 3.2.3'
 gem 'jquery-rails'
 
 gem 'rails_layout'
+
+ruby '1.9.3'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
