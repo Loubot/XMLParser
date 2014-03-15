@@ -50,6 +50,10 @@ class MainPageController < ApplicationController
   def all
     @home_page = 'all_stations'
 
+    if current_user
+      @favs = User.find_by_id(current_user.id).favourites
+    end
+
     rail_url = "http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML_WithTrainType?TrainType=#{params[:data]}"
     
     @xml_data = Net::HTTP.get_response(URI.parse(rail_url)).body

@@ -1,14 +1,19 @@
 <% if current_user %>
   <ul id ="loginContainer" class="nav navbar-nav loggedIn">
         
-    <li class="dropdown">
+    <div class="dropdown userDropDown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @current_user.email %> <b class="caret"></b></a>
-      <div class="dropdown-menu user">
-        <%= link_to('Log out', logout_path) %><br>
-        <%= link_to 'Edit Favourites',@current_user, method: :get %>
+      <ul class="dropdown-menu user">
+        <li role="presentation"><%= link_to('Log out', logout_path) %></li>
+        <li role="presentation"><%= link_to 'Edit Favourites',@current_user, method: :get %></li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation"><strong>Your Favourites</strong></li>
+        <% @favs.each do |fav| %>
+          <li role="presentation"><%= fav.name %></li>
+        <% end %>
        
-      </div> <!-- end of dropdown-menu -->
-    </li> <!-- end of dropdown -->
+      </ul> <!-- end of dropdown-menu -->
+    </div> <!-- end of dropdown -->
   </ul> <!-- end of loginContainer -->
 <% else %>
   <ul id ="loginContainer" class="nav navbar-nav loggedOut">
