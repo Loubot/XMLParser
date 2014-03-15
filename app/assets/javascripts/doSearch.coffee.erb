@@ -10,17 +10,21 @@ removeText = () ->
 
 checkMyLocation = () ->
   if $('#myLocationsMap').height() > 0
-    navigator.geolocation.getCurrentPosition success, error, { timeout: 5000 }
+    alert 'b'
+    navigator.geolocation.getCurrentPosition success, error,
+    timeout: 10000
+
 
 
 success = (pos) -> 
+  alert 'pos' + JSON.stringify pos
   window.position = pos
-  getAjax = () ->
-    return $.ajax
-      url: 'http://young-coast-3618.herokuapp.com/nearby_stations.json'
-      data: { coords: [pos.coords.latitude, pos.coords.longitude] }
-      type: 'get'
-  $.when(getAjax()).then populateMyLocation
+  
+  $.ajax
+    url: 'http://localhost:3000/nearby_stations.json'
+    data: { coords: [pos.coords.latitude, pos.coords.longitude] }
+    type: 'get'
+    success: populateMyLocation
 
 populateMyLocation = (stations) ->
 
@@ -48,14 +52,14 @@ populateMyLocation = (stations) ->
       map: map
       position: latlng
       icon: '/assets/train.png'
-      content: """<a href="http://young-coast-3618.herokuapp.com/station_info?data=#{@.code}">#{@.stationName}</a> """
+      content: """<a href="http://localhost:3000/station_info?data=#{@.code}">#{@.stationName}</a> """
     google.maps.event.addListener marker, 'click', ->
       infoWindow.open map, @
       infoWindow.setContent @.content
     # end populate map
 
     #populate station results div
-    $('#myLocation').append """<a href="http://young-coast-3618.herokuapp.com/station_info?data=#{@.code}">#{@.stationName}</a><hr>"""
+    $('#myLocation').append """<a href="http://localhost:3000/station_info?data=#{@.code}">#{@.stationName}</a><hr>"""
 
   
     

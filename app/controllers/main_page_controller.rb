@@ -207,10 +207,11 @@ class MainPageController < ApplicationController
 
     @sortedStationsByDistance = @distances.sort_by { |station| station[:distance] }
     gon.sortedDistances = @sortedStationsByDistance
-    
+    gon.returned_train = @sortedStationsByDistance
     respond_to do |format|
       format.html
       format.json { render json: @sortedStationsByDistance }
+      format.js { render :js => "gonMap()"}
     end
     #http://rubydoc.info/gems/rails-geocoder/0.9.10/frames
   end
