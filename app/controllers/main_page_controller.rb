@@ -119,8 +119,9 @@ class MainPageController < ApplicationController
   def station_info   
     @home_page = "orange" 
     @returned_station_code = params[:data]
-    @fav = Favourite.find_by_station(params[:data])
-    #@station = params[:data].gsub(' ','+' )
+    if User.find_by_id(current_user.id)
+      @fav = User.find_by_id(current_user).favourites.where(station: params[:data]) 
+    end    
     begin 
       @stationMessage = @allStationsWithCoords[params[:data]][:stationName]      
     rescue => e      
@@ -154,6 +155,7 @@ class MainPageController < ApplicationController
     respond_to do |format|
     format.html
     format.json { render json: {station:@stationByTime, coords:@allStationsWithCoords[params[:data]] } }
+    format.js { render :js => "gonMap()"}
     end
   end  
 
@@ -211,7 +213,7 @@ class MainPageController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @sortedStationsByDistance }
-      format.js { render :js => "gonMap()"}
+      
     end
     #http://rubydoc.info/gems/rails-geocoder/0.9.10/frames
   end

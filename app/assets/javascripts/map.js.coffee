@@ -1,9 +1,8 @@
 $(document).ready -> 
   
 
-  window.gonMap = () ->
+  if gon.returned_train
     hash = gon.returned_train
-    alert 'gon ' + JSON.stringify hash
     myLatLng = new google.maps.LatLng(hash.lat, hash.lon)
     mapOptions = 
       center: myLatLng

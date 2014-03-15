@@ -1,10 +1,10 @@
 class FavouritesController < ApplicationController
 
   def addFavourite
-    @favourite = Favourite.new(name:params[:name], station:params[:code], user_id: current_user.id)
+    @favourite = Favourite.create(name:params[:name], station:params[:code], user_id: current_user.id)
     if @favourite.save
       flash[:success] = 'Favourite saved'
-      redirect_to :back
+      redirect_to station_info_path(:data => params[:code])
     else
       flash[:danger] = 'Failed to save favourite'
       redirect_to :back
