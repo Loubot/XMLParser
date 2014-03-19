@@ -124,7 +124,7 @@ class MainPageController < ApplicationController
     @home_page = "orange" 
     @returned_station_code = params[:data]
     if User.find_by_id(current_user.id)
-      @fav = User.find_by_id(current_user).favourites.where(station: params[:data]) 
+      @favs = User.find_by_id(current_user).favourites.where(station: params[:data]) 
     end    
     begin 
       @stationMessage = @allStationsWithCoords[params[:data]][:stationName]      

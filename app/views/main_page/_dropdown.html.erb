@@ -9,7 +9,7 @@
         <li role="presentation" class="divider"></li>
         <li role="presentation"><strong>Your Favourites</strong></li>
         <% @favs.each do |fav| %>
-          <li role="presentation"><%= fav.name %></li>
+          <%= link_to fav.name, station_info_path(:data =>fav.station) %><br>
         <% end %>
        
       </ul> <!-- end of dropdown-menu -->
