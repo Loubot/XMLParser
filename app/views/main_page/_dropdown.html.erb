@@ -8,8 +8,10 @@
         <li role="presentation"><%= link_to 'Edit Favourites',@current_user, method: :get %></li>
         <li role="presentation" class="divider"></li>
         <li role="presentation"><strong>Your Favourites</strong></li>
-        <% @favs.each do |fav| %>
+        <% if @favs %>
+          <% @favs.each do |fav| %>
           <%= link_to fav.name, station_info_path(:data =>fav.station) %><br>
+        <% end %>
         <% end %>
        
       </ul> <!-- end of dropdown-menu -->

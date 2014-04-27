@@ -8,6 +8,8 @@ gem 'bootstrap-sass'
 
 gem 'gon'
 
+gem 'thin'
+
 gem 'will_paginate'
 
 gem 'better_errors'
