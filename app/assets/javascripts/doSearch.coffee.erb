@@ -10,14 +10,13 @@ removeText = () ->
 
 checkMyLocation = () ->
   if $('#myLocationsMap').height() > 0
-    alert 'b'
     navigator.geolocation.getCurrentPosition success, error,
     timeout: 10000
 
 
 
 success = (pos) -> 
-  alert 'pos' + JSON.stringify pos
+  # alert 'pos' + JSON.stringify pos
   window.position = pos
   
   $.ajax
